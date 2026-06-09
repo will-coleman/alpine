@@ -4,604 +4,521 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Alpine Flyer</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg:       #f5f4f0;
-      --surface:  #ffffff;
-      --ink:      #111111;
-      --ink-mid:  #555555;
-      --ink-light:#999999;
-      --rule:     #e0ddd8;
-      --accent:   #1a3a5c;   /* deep navy */
-      --accent2:  #c8a96e;   /* warm brass */
-      --mono: 'DM Sans', sans-serif;
-      --serif: 'DM Serif Display', serif;
+      --black:  #0a0a0a;
+      --black2: #141414;
+      --card:   #1c1c1c;
+      --yellow: #f5c400;
+      --yellow2:#e6b800;
+      --white:  #ffffff;
+      --rule:   rgba(255,255,255,0.1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--mono);
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
       font-weight: 300;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ── UTILITIES ── */
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-    .label {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-light);
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
     }
-    hr.rule { border: none; border-top: 1px solid var(--rule); }
 
-    /* ── NAV ── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
     header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--rule);
-      position: sticky; top: 0; z-index: 100;
-    }
-
-    .nav-inner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 0 2rem; height: 64px;
       display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(245,196,0,0.15);
     }
 
-    .nav-logo {
-      display: flex; align-items: center; gap: 0.75rem;
-      text-decoration: none;
-    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
 
     .nav-logo img {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: var(--rule);
+      width: 34px; height: 34px; border-radius: 50%;
+      object-fit: cover; background: #222;
+      border: 1.5px solid var(--yellow);
     }
 
     .nav-logo-text {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      color: var(--ink);
-      letter-spacing: 0.01em;
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.05rem; color: var(--white); letter-spacing: 0.05em;
     }
 
-    nav {
-      display: flex; align-items: center; gap: 2rem;
-    }
+    nav { display: flex; align-items: center; gap: 2rem; }
 
     nav a {
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 400;
-      color: var(--ink-mid);
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
+      font-size: 0.8rem; font-weight: 400; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.2s;
     }
 
-    nav a:hover { color: var(--ink); }
+    nav a:hover { color: var(--white); }
 
-    .btn {
-      display: inline-block;
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      padding: 0.55rem 1.3rem;
-      border-radius: 2px;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .btn-dark {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .btn-dark:hover { background: #0f2740; }
-
-    .btn-outline {
-      border: 1px solid var(--ink);
-      color: var(--ink);
-      background: transparent;
-    }
-
-    .btn-outline:hover { background: var(--ink); color: #fff; }
-
-    /* ── HERO ── */
-    .hero {
-      background: var(--accent);
-      color: #fff;
-      padding: 5rem 0 4.5rem;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .hero-label {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 1.2rem;
-    }
-
-    .hero-title {
-      font-family: var(--serif);
-      font-size: clamp(2.6rem, 4.5vw, 3.8rem);
-      line-height: 1.1;
-      font-weight: 400;
-      margin-bottom: 1.4rem;
-      color: #fff;
-    }
-
-    .hero-desc {
-      font-size: 1rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.65);
-      margin-bottom: 2rem;
-      max-width: 420px;
-    }
-
-    .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-
-    .btn-brass {
-      background: var(--accent2);
-      color: #fff;
-    }
-
-    .btn-brass:hover { background: #b8954f; }
-
-    .btn-ghost-white {
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
-      background: transparent;
-    }
-
-    .btn-ghost-white:hover { background: rgba(255,255,255,0.1); }
-
-    .hero-stats {
-      display: flex; gap: 2.5rem;
-      margin-top: 2.8rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .stat-n {
-      font-family: var(--serif);
-      font-size: 2rem;
-      color: #fff;
-      line-height: 1;
-    }
-
-    .stat-l {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin-top: 0.3rem;
-    }
-
-    .hero-embed {
-      aspect-ratio: 16/9;
-      border-radius: 3px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-    }
-
-    .hero-embed iframe {
-      width: 100%; height: 100%; border: none; display: block;
-    }
-
-    /* ── DIVIDER BAR ── */
-    .divider-bar {
-      background: var(--surface);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      padding: 0.9rem 0;
-    }
-
-    .divider-inner {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-
-    .divider-tag {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.75rem;
-      color: var(--ink-mid);
-    }
-
-    .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent2);
-      display: inline-block;
-    }
-
-    /* ── SECTIONS ── */
-    .section { padding: 4.5rem 0; }
-
-    .section-head {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .section-title {
-      font-family: var(--serif);
-      font-size: 1.6rem;
-      font-weight: 400;
-      color: var(--ink);
-    }
-
-    .section-link {
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.2s;
-    }
-
-    .section-link:hover { color: var(--accent2); }
-
-    /* ── VIDEO GRID ── */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .video-card {
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      border-radius: 2px;
-      overflow: hidden;
-      transition: box-shadow 0.2s, border-color 0.2s;
-    }
-
-    .video-card:hover {
-      border-color: #c8c4bc;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    }
-
-    .video-thumb {
-      aspect-ratio: 16/9;
-      position: relative;
-      overflow: hidden;
-      background: #e8e5df;
-    }
-
-    .video-thumb iframe {
-      width: 100%; height: 100%; border: none; display: block;
-      pointer-events: none;
-    }
-
-    .thumb-cover {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      background: rgba(17,17,17,0.1);
+    .btn-nav {
+      background: var(--yellow); color: var(--black);
+      font-weight: 500; padding: 0.45rem 1.15rem; border-radius: 2px;
       transition: background 0.2s;
     }
 
-    .video-card:hover .thumb-cover { background: rgba(17,17,17,0.05); }
+    .btn-nav:hover { background: var(--yellow2); color: var(--black); }
 
-    .play-circle {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: var(--surface);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
+    /* HERO */
+    #hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; align-items: center; overflow: hidden;
     }
 
-    .video-card:hover .play-circle { transform: scale(1.08); }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: url('hero-bg.jpg');
+      background-size: cover; background-position: center 30%;
+      transform: scale(1.1) translateY(0px);
+      will-change: transform;
+    }
 
-    .play-circle svg { width: 16px; height: 16px; fill: var(--accent); margin-left: 2px; }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(105deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.58) 55%, rgba(10,10,10,0.75) 100%);
+    }
+
+    .hero-content { position: relative; z-index: 2; padding-top: 64px; }
+
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--yellow); margin-bottom: 1.4rem;
+      opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+
+    .hero-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--yellow); display: block; }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(3.8rem, 10vw, 9rem);
+      line-height: 0.9; letter-spacing: -0.02em; color: var(--white);
+      opacity: 0; animation: fadeUp 0.7s ease 0.38s forwards;
+    }
+
+    .hero-title .outline { -webkit-text-stroke: 2px var(--white); color: transparent; }
+
+    .hero-sub {
+      margin-top: 1.8rem; font-size: 1rem; line-height: 1.78;
+      color: rgba(255,255,255,0.55); max-width: 430px;
+      opacity: 0; animation: fadeUp 0.7s ease 0.56s forwards;
+    }
+
+    .hero-actions {
+      margin-top: 2.2rem; display: flex; gap: 0.8rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s ease 0.72s forwards;
+    }
+
+    .btn-yellow {
+      background: var(--yellow); color: var(--black);
+      padding: 0.75rem 2rem; border-radius: 2px; text-decoration: none;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: background 0.2s, transform 0.15s; display: inline-block;
+    }
+
+    .btn-yellow:hover { background: var(--yellow2); transform: translateY(-2px); }
+
+    .btn-line {
+      border: 1px solid rgba(255,255,255,0.3); color: var(--white);
+      padding: 0.75rem 2rem; border-radius: 2px; text-decoration: none;
+      font-size: 0.82rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s; display: inline-block;
+    }
+
+    .btn-line:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 3.5rem;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.12);
+      opacity: 0; animation: fadeUp 0.7s ease 0.9s forwards;
+    }
+
+    .stat-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem; color: var(--yellow); }
+
+    .stat-l { font-size: 0.68rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.2rem; }
+
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      opacity: 0; animation: fadeIn 1s ease 1.6s forwards;
+    }
+
+    .scroll-hint span { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+    .scroll-arrow {
+      width: 18px; height: 18px;
+      border-right: 1.5px solid rgba(255,255,255,0.3);
+      border-bottom: 1.5px solid rgba(255,255,255,0.3);
+      transform: rotate(45deg);
+      animation: bounce 1.8s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50%       { transform: rotate(45deg) translateY(5px); }
+    }
+
+    /* STRIPE */
+    .stripe {
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--yellow) 0px, var(--yellow) 40px, transparent 40px, transparent 56px);
+    }
+
+    /* SECTIONS */
+    .section { padding: 5.5rem 0; }
+
+    .section-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 2.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--rule);
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -0.01em; color: var(--white);
+    }
+
+    .section-title .accent { color: var(--yellow); }
+
+    .section-link {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--yellow); text-decoration: none; transition: opacity 0.2s;
+    }
+
+    .section-link:hover { opacity: 0.7; }
+
+    /* FEATURED */
+    #featured { background: var(--black2); }
+
+    .featured-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center; }
+
+    .featured-embed {
+      aspect-ratio: 16/9; border-radius: 3px; overflow: hidden;
+      border: 1px solid rgba(245,196,0,0.2);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .featured-embed iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    .featured-label {
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .featured-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); display: block; }
+
+    .featured-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.4rem, 2.5vw, 2rem); line-height: 1.15; color: var(--white); margin-bottom: 1.2rem;
+    }
+
+    .featured-desc { font-size: 0.95rem; line-height: 1.8; color: rgba(255,255,255,0.5); margin-bottom: 1.8rem; }
+
+    /* VIDEO GRID */
+    .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+
+    .video-card {
+      background: var(--card); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 3px; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+
+    .video-card:hover {
+      border-color: rgba(245,196,0,0.4); transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4), 0 0 0 1px rgba(245,196,0,0.1);
+    }
+
+    .video-thumb { aspect-ratio: 16/9; position: relative; overflow: hidden; background: #111; }
+
+    .video-thumb iframe { width: 100%; height: 100%; border: none; display: block; pointer-events: none; }
+
+    .thumb-cover {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.22); cursor: pointer; transition: background 0.2s;
+    }
+
+    .video-card:hover .thumb-cover { background: rgba(0,0,0,0.08); }
+
+    .play-btn {
+      width: 44px; height: 44px; background: var(--yellow); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; transition: transform 0.2s;
+    }
+
+    .video-card:hover .play-btn { transform: scale(1.1); }
+
+    .play-btn svg { width: 15px; height: 15px; fill: var(--black); margin-left: 2px; }
 
     .video-body { padding: 1rem 1.1rem 1.2rem; }
 
-    .video-title {
-      font-size: 0.9rem;
-      font-weight: 500;
-      line-height: 1.4;
-      color: var(--ink);
-      margin-bottom: 0.45rem;
-    }
+    .video-title { font-size: 0.88rem; font-weight: 500; line-height: 1.45; color: var(--white); margin-bottom: 0.4rem; }
 
-    .video-meta {
-      font-size: 0.75rem;
-      color: var(--ink-light);
-    }
+    .video-meta { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
 
-    /* card active = playable */
     .video-card.playing .thumb-cover { display: none; }
     .video-card.playing .video-thumb iframe { pointer-events: all; }
 
-    /* ── ABOUT ── */
-    .about-bg { background: var(--surface); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    /* ABOUT */
+    #about { position: relative; overflow: hidden; }
 
-    .about-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 5rem;
-      align-items: start;
-      padding: 4.5rem 0;
+    #about::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background-image: url('hero-bg.jpg');
+      background-size: cover; background-position: center 60%; opacity: 0.07;
     }
 
-    .about-title {
-      font-family: var(--serif);
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 400;
-      line-height: 1.2;
-      color: var(--ink);
-      margin-bottom: 1.5rem;
+    .about-inner { position: relative; z-index: 1; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+
+    .about-big {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.01em;
+      color: var(--white); margin-bottom: 1.8rem;
     }
 
-    .about-text {
-      font-size: 0.97rem;
-      line-height: 1.85;
-      color: var(--ink-mid);
-      margin-bottom: 1.5rem;
-    }
+    .about-big .yellow { color: var(--yellow); }
 
-    .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .about-text { font-size: 0.97rem; line-height: 1.85; color: rgba(255,255,255,0.5); margin-bottom: 1.2rem; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
 
     .tag {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid var(--rule);
-      color: var(--ink-mid);
-      padding: 0.3rem 0.75rem;
-      border-radius: 2px;
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1px solid rgba(245,196,0,0.25); color: var(--yellow);
+      padding: 0.3rem 0.8rem; border-radius: 2px; background: rgba(245,196,0,0.05);
     }
 
-    .about-aside { border-left: 1px solid var(--rule); padding-left: 2.5rem; }
-
-    .aside-item { margin-bottom: 2rem; }
-
-    .aside-label {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 0.3rem;
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 3px;
+      overflow: hidden; background: rgba(255,255,255,0.08);
     }
 
-    .aside-val {
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      color: var(--ink);
+    .stat-box { background: var(--card); padding: 2rem 1.8rem; }
+
+    .stat-box-n {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 2.5rem; color: var(--yellow); letter-spacing: -0.02em;
     }
 
-    /* ── SUBSCRIBE STRIP ── */
-    .sub-strip {
-      background: var(--accent);
-      padding: 3.5rem 0;
+    .stat-box-l { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.35rem; }
+
+    /* SUB STRIP */
+    .sub-strip { background: var(--yellow); padding: 3.5rem 0; }
+
+    .sub-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+
+    .sub-head { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.4rem, 3vw, 2rem); color: var(--black); letter-spacing: -0.01em; }
+
+    .sub-desc { font-size: 0.9rem; color: rgba(0,0,0,0.5); margin-top: 0.3rem; }
+
+    .btn-black {
+      background: var(--black); color: var(--white);
+      padding: 0.8rem 2.2rem; border-radius: 2px; text-decoration: none;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      white-space: nowrap; transition: background 0.2s, transform 0.15s; display: inline-block;
     }
 
-    .sub-inner {
-      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
-    }
+    .btn-black:hover { background: #1a1a1a; transform: translateY(-2px); }
 
-    .sub-text {
-      font-family: var(--serif);
-      font-size: 1.6rem;
-      color: #fff;
-      font-weight: 400;
-    }
+    /* FOOTER */
+    footer { background: var(--black2); border-top: 1px solid var(--rule); padding: 2rem 0; }
 
-    .sub-desc {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.5);
-      margin-top: 0.4rem;
-    }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--rule);
-      padding: 2rem 0;
-    }
+    .footer-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); }
 
-    .footer-inner {
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    .footer-links { display: flex; gap: 2rem; }
 
-    .footer-brand {
-      font-family: var(--serif);
-      font-size: 1rem;
-      color: var(--ink-mid);
-    }
+    .footer-links a { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
 
-    .footer-links { display: flex; gap: 1.8rem; }
+    .footer-links a:hover { color: var(--yellow); }
 
-    .footer-links a {
-      font-size: 0.78rem;
-      color: var(--ink-light);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.2); }
 
-    .footer-links a:hover { color: var(--ink); }
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+    .d5 { transition-delay: 0.5s; }
 
-    .footer-copy {
-      font-size: 0.72rem;
-      color: var(--ink-light);
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 860px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-embed { display: none; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .video-grid { grid-template-columns: 1fr 1fr; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .about-aside { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 2rem; display: flex; gap: 3rem; flex-wrap: wrap; }
       .sub-inner { flex-direction: column; align-items: flex-start; }
       .footer-inner { flex-direction: column; gap: 1.2rem; text-align: center; }
+      .footer-links { justify-content: center; }
     }
 
     @media (max-width: 560px) {
-      .video-grid { grid-template-columns: 1fr; }
       nav { display: none; }
+      .video-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
+<!-- NAV -->
 <header>
-  <div class="container">
-    <div class="nav-inner">
-      <a class="nav-logo" href="#">
-        <img src="logo.png" alt="Alpine Flyer" onerror="this.style.display='none'"/>
-        <span class="nav-logo-text">Alpine Flyer</span>
-      </a>
-      <nav>
-        <a href="#videos">Videos</a>
-        <a href="#about">About</a>
-        <a href="https://www.youtube.com/@AlpineFlyer" target="_blank" rel="noopener">YouTube</a>
-        <a class="btn btn-dark" href="https://www.youtube.com/@AlpineFlyer?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
-      </nav>
-    </div>
-  </div>
+  <a class="nav-logo" href="#">
+    <img src="logo.png" alt="Alpine Flyer" onerror="this.style.display='none'"/>
+    <span class="nav-logo-text">ALPINE FLYER</span>
+  </a>
+  <nav>
+    <a href="#featured">Featured</a>
+    <a href="#videos">Videos</a>
+    <a href="#about">About</a>
+    <a class="btn-nav" href="https://www.youtube.com/@AlpineFlyer?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
+  </nav>
 </header>
 
-<!-- ── HERO ── -->
-<section class="hero">
+<!-- HERO -->
+<!-- To add your background image: save a photo as hero-bg.jpg in the same folder as this file -->
+<!-- Good options: cockpit shot, runway, aerial mountain view -->
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <p class="hero-eyebrow">Aviation · Simulation · Travel</p>
+    <h1 class="hero-title">
+      ALPINE<br>
+      <span class="outline">FLYER</span>
+    </h1>
+    <p class="hero-sub">
+      Flight reviews, simulator immersion, and real-world aviation — from a British pilot who actually loves flying.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-yellow" href="https://www.youtube.com/@AlpineFlyer?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
+      <a class="btn-line" href="#videos">Watch Videos</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-n">1.93K</div><div class="stat-l">Subscribers</div></div>
+      <div><div class="stat-n">69</div><div class="stat-l">Videos</div></div>
+      <div><div class="stat-n">10K+</div><div class="stat-l">Total Views</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- FEATURED -->
+<section id="featured" class="section">
   <div class="container">
-    <div class="hero-inner">
-      <div>
-        <p class="hero-label">Aviation · Simulation · Travel</p>
-        <h1 class="hero-title">Flying, landings, and the thrill of aviation</h1>
-        <p class="hero-desc">A UK-based channel covering real airline reviews, ultra-realistic flight simulation, and genuine adventures across Europe and beyond.</p>
-        <div class="hero-actions">
-          <a class="btn btn-brass" href="https://www.youtube.com/@AlpineFlyer?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
-          <a class="btn btn-ghost-white" href="#videos">Watch Videos</a>
-        </div>
-        <div class="hero-stats">
-          <div>
-            <div class="stat-n">1.93K</div>
-            <div class="stat-l">Subscribers</div>
-          </div>
-          <div>
-            <div class="stat-n">69</div>
-            <div class="stat-l">Videos</div>
-          </div>
-          <div>
-            <div class="stat-n">10K+</div>
-            <div class="stat-l">Total Views</div>
-          </div>
-        </div>
+    <div class="section-header reveal">
+      <h2 class="section-title">Featured <span class="accent">Video</span></h2>
+    </div>
+    <div class="featured-grid">
+      <div class="featured-embed reveal">
+        <!-- Replace VIDEO_ID with your YouTube video ID (found after ?v= in the video URL) -->
+        <iframe
+          src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+          title="Alpine Flyer — Featured"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen loading="lazy">
+        </iframe>
       </div>
-      <div>
-        <div class="hero-embed">
-          <!-- Replace VIDEO_ID with your latest video's YouTube ID -->
-          <iframe
-            src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
-            title="Alpine Flyer — Latest Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen loading="lazy">
-          </iframe>
-        </div>
+      <div class="reveal d2">
+        <p class="featured-label">Latest Upload</p>
+        <h3 class="featured-title">This Airline Had BAD Reviews… And I Flew It</h3>
+        <p class="featured-desc">Brussels Airlines under the microscope. Real passenger experience, honest verdict — would I fly them again?</p>
+        <a class="btn-yellow" href="https://www.youtube.com/@AlpineFlyer/videos" target="_blank" rel="noopener">Watch on YouTube</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── DIVIDER ── -->
-<div class="divider-bar">
-  <div class="container">
-    <div class="divider-inner">
-      <span class="divider-tag"><span class="dot"></span> New video every month</span>
-      <span class="divider-tag">Flight Simulation &nbsp;·&nbsp; Airline Reviews &nbsp;·&nbsp; Aviation</span>
-      <span class="divider-tag"><a href="https://www.youtube.com/@AlpineFlyer" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">youtube.com/@AlpineFlyer</a></span>
-    </div>
-  </div>
-</div>
+<div class="stripe"></div>
 
-<!-- ── VIDEOS ── -->
-<section class="section" id="videos">
+<!-- VIDEOS -->
+<section id="videos" class="section" style="background:var(--black2);">
   <div class="container">
-    <div class="section-head">
-      <h2 class="section-title">Latest Videos</h2>
-      <a class="section-link" href="https://www.youtube.com/@AlpineFlyer/videos" target="_blank" rel="noopener">View all on YouTube →</a>
+    <div class="section-header reveal">
+      <h2 class="section-title">Latest <span class="accent">Videos</span></h2>
+      <a class="section-link" href="https://www.youtube.com/@AlpineFlyer/videos" target="_blank" rel="noopener">View all →</a>
     </div>
-
     <div class="video-grid" id="videoGrid"></div>
   </div>
 </section>
 
-<!-- ── ABOUT ── -->
-<div class="about-bg" id="about">
-  <div class="container">
+<div class="stripe"></div>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="container about-inner">
     <div class="about-grid">
       <div>
-        <p class="label" style="margin-bottom:1rem;">About the Channel</p>
-        <h2 class="about-title">Aviation content made by someone who actually loves flying</h2>
-        <p class="about-text">Alpine Flyer is a YouTube channel run from the UK, dedicated to everything aviation. From real-world airline reviews — including short-haul gems like Air Dolomiti across the Alps — to ultra-realistic flight simulation in MSFS 2024, every video is made for people who share a genuine passion for flight.</p>
-        <p class="about-text">Whether it's testing how an airline with bad reviews actually holds up, or experiencing an engine failure on takeoff in the simulator, the goal is always the same: honest, engaging aviation content.</p>
-        <div class="tag-list">
+        <h2 class="about-big reveal">Aviation content made by someone who <span class="yellow">actually loves flying.</span></h2>
+        <p class="about-text reveal d1">Alpine Flyer is a UK-based channel covering real airline reviews, ultra-realistic MSFS 2024 simulation, and genuine adventures across European skies — from Airbus A320 speedruns to mountain-hopping on an Embraer E195.</p>
+        <p class="about-text reveal d2">Every video is made for people with a genuine passion for aviation — not just watching, but understanding what it really feels like to fly.</p>
+        <div class="tag-list reveal d3">
           <span class="tag">MSFS 2024</span>
           <span class="tag">Airline Reviews</span>
+          <span class="tag">European Routes</span>
           <span class="tag">Flight Sim</span>
-          <span class="tag">European Aviation</span>
           <span class="tag">UK-Based</span>
           <span class="tag">Short-Haul</span>
         </div>
+        <div class="reveal d4" style="margin-top:2rem;">
+          <a class="btn-yellow" href="https://www.youtube.com/@AlpineFlyer" target="_blank" rel="noopener">Visit Channel</a>
+        </div>
       </div>
-      <div class="about-aside">
-        <div class="aside-item">
-          <div class="aside-label">Subscribers</div>
-          <div class="aside-val">1,930</div>
+      <div class="reveal d2">
+        <div class="about-stats">
+          <div class="stat-box"><div class="stat-box-n">1.93K</div><div class="stat-box-l">Subscribers</div></div>
+          <div class="stat-box"><div class="stat-box-n">69</div><div class="stat-box-l">Videos</div></div>
+          <div class="stat-box"><div class="stat-box-n">10K+</div><div class="stat-box-l">Total Views</div></div>
+          <div class="stat-box"><div class="stat-box-n">UK</div><div class="stat-box-l">Based</div></div>
         </div>
-        <div class="aside-item">
-          <div class="aside-label">Total Videos</div>
-          <div class="aside-val">69</div>
-        </div>
-        <div class="aside-item">
-          <div class="aside-label">Channel</div>
-          <div class="aside-val" style="font-size:1rem; font-family: var(--mono); font-weight:400; color: var(--ink-mid);">@AlpineFlyer</div>
-        </div>
-        <a class="btn btn-dark" style="margin-top:0.5rem;" href="https://www.youtube.com/@AlpineFlyer" target="_blank" rel="noopener">Visit Channel</a>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ── SUBSCRIBE STRIP ── -->
+<!-- SUBSCRIBE STRIP -->
 <div class="sub-strip">
   <div class="container">
     <div class="sub-inner">
       <div>
-        <div class="sub-text">Don't miss a flight.</div>
-        <div class="sub-desc">Subscribe for new aviation videos every month.</div>
+        <div class="sub-head">Don't miss a flight.</div>
+        <div class="sub-desc">New aviation content every month — subscribe and stay on board.</div>
       </div>
-      <a class="btn btn-brass" style="font-size:0.85rem; padding:0.75rem 2rem; white-space:nowrap;" href="https://www.youtube.com/@AlpineFlyer?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
+      <a class="btn-black" href="https://www.youtube.com/@AlpineFlyer?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
     </div>
   </div>
 </div>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <span class="footer-brand">Alpine Flyer</span>
+      <span class="footer-brand">ALPINE FLYER</span>
       <div class="footer-links">
         <a href="https://www.youtube.com/@AlpineFlyer" target="_blank" rel="noopener">YouTube</a>
         <a href="#videos">Videos</a>
@@ -613,33 +530,46 @@
 </footer>
 
 <script>
-  // ── Replace VIDEO_ID values with real YouTube video IDs ──
-  // Find a video ID in its URL: youtube.com/watch?v=THIS_PART
+  // PARALLAX on hero background
+  const heroBg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => {
+    heroBg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.22}px)`;
+  }, { passive: true });
+
+  // SCROLL REVEAL
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // VIDEO CARDS
+  // Replace each VIDEO_ID with the real YouTube ID from your video URLs (?v=THIS_PART)
   const videos = [
     { id: "VIDEO_ID_1", title: "This Airline Had BAD Reviews… And I Flew It",          meta: "10K views · 1 month ago" },
     { id: "VIDEO_ID_2", title: "SPEEDRUNNING the Airbus A320",                          meta: "3.6K views · 2 months ago" },
     { id: "VIDEO_ID_3", title: "This 737 MAX Has a HUGE Problem…",                      meta: "156 views · 2 months ago" },
     { id: "VIDEO_ID_4", title: "Engine Failure on Takeoff | Ultra-Realistic MSFS 2024", meta: "401 views · 4 months ago" },
     { id: "VIDEO_ID_5", title: "Embraer E195 Air Dolomiti | Genova to Munich",          meta: "500 views · 9 months ago" },
-    { id: "VIDEO_ID_6", title: "More From Alpine Flyer",                                meta: "Watch on YouTube" },
+    { id: "VIDEO_ID_6", title: "More From Alpine Flyer",                                meta: "Watch on YouTube →" },
   ];
 
+  const delays = ['', 'd1', 'd2', 'd3', 'd4', 'd5'];
   const grid = document.getElementById('videoGrid');
 
-  videos.forEach(v => {
+  videos.forEach((v, i) => {
     const card = document.createElement('div');
-    card.className = 'video-card';
+    card.className = `video-card reveal ${delays[i] || ''}`;
     card.innerHTML = `
       <div class="video-thumb">
-        <iframe
-          src="https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1"
+        <iframe src="https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1"
           title="${v.title}"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen loading="lazy"></iframe>
         <div class="thumb-cover">
-          <div class="play-circle">
-            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         </div>
       </div>
       <div class="video-body">
@@ -648,12 +578,12 @@
       </div>`;
 
     card.querySelector('.thumb-cover').addEventListener('click', () => {
-      const iframe = card.querySelector('iframe');
-      iframe.src = `https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`;
+      card.querySelector('iframe').src = `https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`;
       card.classList.add('playing');
     });
 
     grid.appendChild(card);
+    io.observe(card);
   });
 </script>
 </body>
