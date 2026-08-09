@@ -184,9 +184,10 @@ strong { font-weight: 600; }
   align-items: baseline;
   gap: 0.75rem 2rem;
   flex-wrap: wrap;
-  padding: 1rem 0 0.9rem;
+  padding: 1.75rem 0 1rem;
   border-bottom: 1px solid var(--rule);
 }
+@media (min-width: 48em) { .hdr { padding: 2.25rem 0 1.1rem; } }
 .hdr-mark {
   font-family: var(--display);
   font-weight: 800;
