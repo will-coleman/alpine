@@ -428,6 +428,67 @@ section { margin-top: calc(var(--step) * 2); }
 .pitch-cta { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; margin: 1.25rem 0 0 !important; }
 .pitch-cta .more { margin-top: 0; }
 
+/* --- coming soon ----------------------------------------------------------
+   The next thing, before the things already out. Full-bleed artwork with the
+   title under it — the same shape as a card, at the size of an announcement. */
+.soon { margin-top: calc(var(--step) * 2); }
+.soon-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--pitch); }
+.soon-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8125rem;
+  color: var(--sodium);
+  margin: 0 0 0.6rem;
+}
+.soon-flag::before { content: ""; width: 0.4375rem; height: 0.4375rem; border-radius: 50%; background: var(--sodium); }
+.soon-t { margin-top: 0.9rem; }
+.soon-note { color: var(--scree); margin: 0.5rem 0 0; max-width: 46ch; }
+
+/* --- contact --------------------------------------------------------------
+   The email address is the page. It gets set at display size because it's the
+   one thing anyone came here to find. */
+.contact { display: grid; gap: 1.75rem; }
+@media (min-width: 56.25em) {
+  .contact { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+}
+.contact-main {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  background: var(--pitch);
+  border-left: 3px solid var(--accent);
+  text-decoration: none;
+}
+.contact-main:hover { background: color-mix(in oklab, var(--snow) 5%, var(--pitch)); }
+.contact-addr {
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.35rem, 5vw, 2.25rem);
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+.contact-main:hover .contact-addr {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--accent);
+}
+.contact-side { display: grid; align-content: start; }
+.contact-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+}
+.contact-side > .contact-row:first-child { border-top: 1px solid var(--rule); }
+.contact-row-t { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.0625rem; }
+.contact-row:hover .contact-row-t { color: var(--accent); }
+
 /* 9 ----------------------------------------------------------------- pages */
 
 .page-head { padding: calc(var(--step) * 1.5) 0 var(--step); }

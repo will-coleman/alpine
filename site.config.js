@@ -88,7 +88,24 @@ export const nav = [
 ];
 
 
+/**
+ * The next video. Set `published: true` (or just delete this block) when it
+ * goes up and the block disappears from the home page on the next build.
+ *
+ * Drop the artwork in src/assets/upcoming/. Both are optional — the block
+ * renders without them, and the build tells you if a filename is wrong.
+ *   thumb  the 16:9 title card
+ *   still  a frame from the video, used on the Instagram page
+ */
+export const upcoming = {
+  live: true,
+  title: "I TOOK THE TRAIN ACROSS *EUROPE*",
+  note: "London to Helsinki, overland, no flights. Out soon.",
+  thumb: "europe-by-train.jpg",
+  still: "train-window.jpg",
+};
+
 /** Set PUBLIC_FORMSPREE_ENDPOINT in the environment. See .env.example. */
 export const formspree = process.env.PUBLIC_FORMSPREE_ENDPOINT || "";
 
-export default { site, youtube, instagram, properties, nav, formspree };
+export default { site, youtube, instagram, properties, nav, upcoming, formspree };

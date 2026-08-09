@@ -5,7 +5,9 @@ import { headline, assertMarked } from "../lib/headline.mjs";
 import { shortDate } from "../lib/components.mjs";
 import { picture } from "../lib/images.mjs";
 import { CACHE } from "../lib/paths.mjs";
-import { youtube, site } from "../../site.config.js";
+import { youtube, site, upcoming } from "../../site.config.js";
+import { SRC } from "../lib/paths.mjs";
+import { access } from "node:fs/promises";
 
 const H1 = "I FLY IT, I FILM IT, I TELL YOU IF IT WAS ANY *GOOD*";
 
@@ -31,6 +33,23 @@ export default async function home(ctx) {
     cards.push({ ...item, img, lead });
   }
 
+  // The next video, if there is one. Artwork is optional — the block renders
+  // without it and the build says which file it couldn't find.
+  let soonImg = null;
+  if (upcoming?.live && upcoming.thumb) {
+    const file = join(SRC, "assets", "upcoming", upcoming.thumb);
+    if (await access(file).then(() => true, () => false)) {
+      soonImg = await picture(file, {
+        alt: "",
+        sizes: "(min-width: 64em) 62rem, 100vw",
+        widths: [640, 1280, 1920],
+        className: "soon-img",
+      });
+    } else {
+      ctx.problems.push(`upcoming: src/assets/upcoming/${upcoming.thumb} not found — block rendered without artwork`);
+    }
+  }
+
   const main = html`
 <div class="wrap">
 
@@ -48,6 +67,15 @@ export default async function home(ctx) {
       </p>
     </div>
   </div>
+
+  ${upcoming?.live
+    ? html`<section class="soon" aria-labelledby="soon">
+    ${soonImg}
+    <p class="soon-flag" style="margin-top:${soonImg ? ".9rem" : "0"}">Coming soon</p>
+    ${headline(upcoming.title, { as: "h2", size: "d-l", id: "soon", className: "soon-t" })}
+    <p class="soon-note">${upcoming.note}</p>
+  </section>`
+    : ""}
 </div>
 
 <section class="pitch">
@@ -64,7 +92,7 @@ export default async function home(ctx) {
       </p>
       <p class="pitch-cta">
         <a class="btn" href="mailto:${site.email}?subject=${encodeURIComponent("Partnership")}">Email me</a>
-        <a class="more" href="/partnerships/">What I deliver, and rates →</a>
+        <a class="more" href="/partnerships/">Get in touch →</a>
       </p>
     </div>
   </div>
