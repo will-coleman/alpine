@@ -9,12 +9,13 @@
  * 3  no client JavaScript anywhere
  * 4  /links weight
  * 5  headings in order on every page
+ * 6  every class used in the markup is actually defined in the stylesheet
  */
 
 import { readFile, readdir, stat } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { gzipSync } from "node:zlib";
-import { DIST } from "./lib/paths.mjs";
+import { DIST, SRC } from "./lib/paths.mjs";
 
 let failures = 0;
 const fail = (msg) => {
@@ -154,6 +155,34 @@ async function checkJs(files) {
     : fail(`/links is ${raw.toFixed(1)}KB, over the 30KB budget`);
 }
 
+/* --------------------------------------------------------------- classes */
+
+/**
+ * Every class the markup uses must exist in the stylesheet.
+ *
+ * This is here because a regex tidy-up once deleted the home page's masthead
+ * rules along with the section above them, and nothing caught it — the page
+ * still rendered, just with the headline jammed against the header rule.
+ */
+async function checkClasses(files) {
+  console.log("\n  Classes");
+  const css = await readFile(join(SRC, "styles", "site.css"), "utf8");
+  const defined = new Set([...css.matchAll(/\.([a-zA-Z][\w-]*)/g)].map((m) => m[1]));
+
+  const used = new Set();
+  for (const file of files) {
+    const html = (await readFile(file, "utf8")).replace(/<style>[\s\S]*?<\/style>/g, "");
+    for (const m of html.matchAll(/class="([^"]+)"/g)) {
+      for (const c of m[1].split(/\s+/)) if (c) used.add(c);
+    }
+  }
+
+  const missing = [...used].filter((c) => !defined.has(c)).sort();
+  missing.length === 0
+    ? pass(`${used.size} classes used, all defined`)
+    : missing.forEach((c) => fail(`.${c} is used in the markup but not defined in site.css`));
+}
+
 /* -------------------------------------------------------------- headings */
 
 async function checkHeadings(files) {
@@ -183,6 +212,7 @@ const files = await htmlFiles();
 checkContrast();
 await checkShell(files);
 await checkJs(files);
+await checkClasses(files);
 await checkHeadings(files);
 
 console.log(failures ? `\n  ${failures} failing\n` : "\n  all checks pass\n");

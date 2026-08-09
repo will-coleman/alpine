@@ -72,7 +72,7 @@ ${
   bare
     ? ""
     : String(html`<a class="skip" href="#main">Skip to content</a>
-<header class="hdr-band">
+<header>
   <div class="wrap">
     <div class="hdr">
       <a class="hdr-mark" href="/">Alpine <span>Media Group</span></a>

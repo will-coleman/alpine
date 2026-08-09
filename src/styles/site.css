@@ -198,7 +198,10 @@ strong { font-weight: 600; }
   line-height: 1;
 }
 .hdr-mark span { color: var(--scree); }
-.nav { display: flex; gap: 1.15rem; flex-wrap: wrap; margin-left: auto; }
+/* Flush left on a phone — the mark, the nav and the headline all share one
+   left edge. It only moves to the right once there's room beside the mark. */
+.nav { display: flex; gap: 0.9rem 1.15rem; flex-wrap: wrap; }
+@media (min-width: 40em) { .nav { margin-left: auto; gap: 1.15rem; } }
 .nav a {
   font-size: 0.9375rem;
   color: var(--scree);
@@ -495,9 +498,24 @@ section { margin-top: calc(var(--step) * 2); }
 .contact-row-t { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.0625rem; }
 .contact-row:hover .contact-row-t { color: var(--accent); }
 
+/* --- the home masthead ----------------------------------------------------
+   Headline left, what I actually do right. Both columns carry weight so the
+   page doesn't open with half of it empty, and the top padding keeps the
+   headline off the header rule. */
+.mast { padding: calc(var(--step) * 2) 0 var(--step); display: grid; gap: 1.25rem; }
+@media (min-width: 56.25em) {
+  .mast { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+}
+.mast-copy p {
+  max-width: 44ch;
+  margin: 0 0 0.9rem;
+  color: color-mix(in oklab, var(--snow) 88%, var(--slate));
+}
+.mast-copy p:last-child { margin-bottom: 0; }
+
 /* 9 ----------------------------------------------------------------- pages */
 
-.page-head { padding: calc(var(--step) * 1.5) 0 var(--step); }
+.page-head { padding: calc(var(--step) * 2) 0 var(--step); }
 .page-head .lede { margin-top: 0.9rem; }
 
 /* Photography is full bleed and large, and never inside a rounded card with a
