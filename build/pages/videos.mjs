@@ -15,13 +15,9 @@ const ABOUT = html`<div class="prose" style="margin-top:1.5rem">
     fifteen minutes.
   </p>
   <p>
-    I'm Will. I'm based in England, I fly more than is sensible, and I'm turning this into a
-    travel channel: airlines, hotels, and the places worth the detour once you've landed. There's
-    a back catalogue of flight sim below and there'll be less of it from here on.
-  </p>
-  <p>
-    If you want a camera pointed at something of yours — a route, a stay, a region —
-    <a href="/partnerships/">I'm open to partnerships</a>.
+    I'm Will. I'm based in England and I'm working my way across Europe one country at a time —
+    trains where I can, flights where I can't, filming it as I go. There's a back catalogue of
+    flight sim below and there'll be less of it from here on.
   </p>
 </div>`;
 

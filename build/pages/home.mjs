@@ -1,20 +1,39 @@
 import { join } from "node:path";
-import { html } from "../lib/html.mjs";
+import { html, raw } from "../lib/html.mjs";
 import { page } from "../lib/layout.mjs";
 import { headline, assertMarked } from "../lib/headline.mjs";
 import { shortDate } from "../lib/components.mjs";
-import { picture } from "../lib/images.mjs";
-import { CACHE } from "../lib/paths.mjs";
+import { picture, resolveAsset } from "../lib/images.mjs";
+import { CACHE, SRC } from "../lib/paths.mjs";
 import { youtube, site, upcoming } from "../../site.config.js";
-import { SRC } from "../lib/paths.mjs";
-import { access } from "node:fs/promises";
 
-const H1 = "I FLY IT, I FILM IT, I TELL YOU IF IT WAS ANY *GOOD*";
+const H1 = "I'M TRAVELLING EUROPE, ONE *COUNTRY* AT A TIME";
 
 export default async function home(ctx) {
   assertMarked(H1, "home h1");
 
-  // The lead is the newest full upload. A Short leading the page means a
+  // The next video, if there is one. Artwork is optional — the block renders
+  // without it and the build says what it couldn't find.
+  let soonImg = null;
+  if (upcoming?.live && upcoming.thumb) {
+    const file = await resolveAsset(join(SRC, "assets", "upcoming"), upcoming.thumb);
+    if (file) {
+      soonImg = await picture(file, {
+        alt: "",
+        sizes: "(min-width: 64em) 62rem, 100vw",
+        widths: [640, 1280, 1920],
+        className: "soon-img",
+        eager: true,
+      });
+    } else {
+      const stem = upcoming.thumb.replace(/\.[^.]+$/, "");
+      ctx.problems.push(
+        `upcoming: nothing named "${stem}" in src/assets/upcoming/ — block rendered without artwork`
+      );
+    }
+  }
+
+  // The lead card is the newest full upload. A Short leading the page means a
   // vertical frame stretched across a wide card, and it looks broken.
   const ordered = [...ctx.index];
   const firstFull = ordered.findIndex((v) => !v.short);
@@ -28,26 +47,14 @@ export default async function home(ctx) {
       ? "(min-width: 60em) 42rem, 100vw"
       : "(min-width: 60em) 20rem, (min-width: 34em) 50vw, 100vw";
     const img = item.thumb
-      ? await picture(join(CACHE, "thumbs", item.thumb), { alt: "", sizes, widths, eager: lead })
+      ? await picture(join(CACHE, "thumbs", item.thumb), {
+          alt: "",
+          sizes,
+          widths,
+          eager: lead && !soonImg,
+        })
       : null;
     cards.push({ ...item, img, lead });
-  }
-
-  // The next video, if there is one. Artwork is optional — the block renders
-  // without it and the build says which file it couldn't find.
-  let soonImg = null;
-  if (upcoming?.live && upcoming.thumb) {
-    const file = join(SRC, "assets", "upcoming", upcoming.thumb);
-    if (await access(file).then(() => true, () => false)) {
-      soonImg = await picture(file, {
-        alt: "",
-        sizes: "(min-width: 64em) 62rem, 100vw",
-        widths: [640, 1280, 1920],
-        className: "soon-img",
-      });
-    } else {
-      ctx.problems.push(`upcoming: src/assets/upcoming/${upcoming.thumb} not found — block rendered without artwork`);
-    }
   }
 
   const main = html`
@@ -57,48 +64,23 @@ export default async function home(ctx) {
     ${headline(H1, { as: "h1", size: "d-xl" })}
     <div class="mast-copy">
       <p>
-        I'm Will. I book the flight, take the trip and put the whole thing on camera — airline
-        reviews from the seat, hotels I actually stayed in, and places worth the detour once you
-        get there. Based in ${site.based}.
+        I'm Will, based in ${site.based}. I'm working my way across Europe — overland where I can,
+        flying where I can't — and filming it as I go. London to Helsinki by train, airline reviews
+        from the seat, and what a place is actually like once you're standing in it.
       </p>
-      <p>
-        <a href="/partnerships/">I'm open to partnerships</a> — airlines, hotels, tourist boards
-        and travel brands. Reviews, trips and product on camera.
-      </p>
+      <p>It all ends up on the channel. Newest first, below.</p>
     </div>
   </div>
 
   ${upcoming?.live
     ? html`<section class="soon" aria-labelledby="soon">
     ${soonImg}
-    <p class="soon-flag" style="margin-top:${soonImg ? ".9rem" : "0"}">Coming soon</p>
+    <p class="soon-flag"${soonImg ? raw(' style="margin-top:.9rem"') : ""}>Coming soon</p>
     ${headline(upcoming.title, { as: "h2", size: "d-l", id: "soon", className: "soon-t" })}
     <p class="soon-note">${upcoming.note}</p>
   </section>`
     : ""}
-</div>
 
-<section class="pitch">
-  <div class="wrap pitch-grid">
-    <div>
-      <p class="eyebrow">Available for work</p>
-      ${headline("SEND ME SOMEWHERE, I'LL REVIEW IT *HONESTLY*", { as: "h2", size: "d-l" })}
-    </div>
-    <div>
-      <p>
-        Holiday and hotel reviews, travel films for YouTube, and product reviews on Instagram.
-        Paid work is disclosed every time, and if it's not good I'll say so — which is the only
-        reason anyone believes the ones that are.
-      </p>
-      <p class="pitch-cta">
-        <a class="btn" href="mailto:${site.email}?subject=${encodeURIComponent("Partnership")}">Email me</a>
-        <a class="more" href="/partnerships/">Get in touch →</a>
-      </p>
-    </div>
-  </div>
-</section>
-
-<div class="wrap">
   <section aria-labelledby="latest">
     <div class="rule-head">
       <h2 class="d d-m" id="latest">Latest on the channel</h2>
@@ -117,6 +99,14 @@ export default async function home(ctx) {
 
     <a class="more" href="${youtube.subscribeUrl}" rel="noopener">Subscribe on YouTube →</a>
   </section>
+
+  <section>
+    <p class="note">
+      Airlines, hotels and tourist boards: if you want a camera on something,
+      <a href="/partnerships/">get in touch</a>.
+    </p>
+  </section>
+
 </div>
 `;
 
@@ -127,7 +117,7 @@ export default async function home(ctx) {
       html: page({
         title: "Alpine Flyer",
         description:
-          "Travel and airline reviews on YouTube by Will. Open to partnerships with airlines, hotels, tourist boards and travel brands.",
+          "Will is travelling Europe one country at a time — trains, airlines, and what a place is actually like. Travel films and airline reviews on YouTube.",
         path: "/",
         section: "videos",
         ogImage: "/og/home.png",

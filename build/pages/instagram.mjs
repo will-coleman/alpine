@@ -1,9 +1,8 @@
 import { join } from "node:path";
-import { access } from "node:fs/promises";
 import { html } from "../lib/html.mjs";
 import { page } from "../lib/layout.mjs";
 import { headline, assertMarked } from "../lib/headline.mjs";
-import { picture } from "../lib/images.mjs";
+import { picture, resolveAsset } from "../lib/images.mjs";
 import { SRC } from "../lib/paths.mjs";
 import { instagram, site, upcoming } from "../../site.config.js";
 
@@ -19,8 +18,8 @@ export default async function instagramPage(ctx) {
 
   let still = null;
   if (upcoming?.still) {
-    const file = join(SRC, "assets", "upcoming", upcoming.still);
-    if (await access(file).then(() => true, () => false)) {
+    const file = await resolveAsset(join(SRC, "assets", "upcoming"), upcoming.still);
+    if (file) {
       still = await picture(file, {
         alt: "",
         sizes: "100vw",
@@ -29,7 +28,7 @@ export default async function instagramPage(ctx) {
         eager: true,
       });
     } else {
-      ctx.problems.push(`instagram: src/assets/upcoming/${upcoming.still} not found — page rendered without the still`);
+      ctx.problems.push(`instagram: nothing named "${upcoming.still.replace(/\.[^.]+$/, "")}" in src/assets/upcoming/ — page rendered without the still`);
     }
   }
 

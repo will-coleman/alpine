@@ -11,7 +11,7 @@
  */
 
 import { createHash } from "node:crypto";
-import { readFile, writeFile, mkdir, copyFile, access } from "node:fs/promises";
+import { readFile, writeFile, mkdir, copyFile, access, readdir } from "node:fs/promises";
 import { join, basename, extname } from "node:path";
 import sharp from "sharp";
 import { CACHE, DIST } from "./paths.mjs";
@@ -128,6 +128,20 @@ export async function picture(srcPath, { alt, sizes = "100vw", widths, className
     }
   )}>
 </picture>`;
+}
+
+/**
+ * Resolves a configured filename against whatever is actually in the folder,
+ * ignoring the extension — so dragging in a .png when the config says .jpg
+ * still works. Returns null if nothing matches.
+ */
+export async function resolveAsset(dir, name) {
+  const stem = name.replace(/\.[^.]+$/, "").toLowerCase();
+  const entries = await readdir(dir).catch(() => []);
+  const hit = entries.find(
+    (f) => f.replace(/\.[^.]+$/, "").toLowerCase() === stem && /\.(jpe?g|png|webp|avif)$/i.test(f)
+  );
+  return hit ? join(dir, hit) : null;
 }
 
 /** Credit line. Every photo on this site carries one. */
