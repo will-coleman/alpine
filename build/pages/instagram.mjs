@@ -48,30 +48,27 @@ ${still ? html`<div class="bleed">${still}</div>` : ""}
   <section class="prose">
     <h2 class="d d-m">What it is</h2>
     <p style="margin-top:.7rem">
-      A running project covering every country in Europe — short video and carousels, one place at
-      a time. The brief has always been the same: skip the queue at the obvious sight and go twenty
-      minutes down the road to the thing nobody photographs.
+      Short video and carousels, one place at a time, working towards every country in Europe. The
+      brief hasn't changed: skip the queue at the famous thing and drive twenty minutes to the one
+      nobody photographs.
     </p>
     <p>
-      People tag the account, and the good ones get reposted with credit on them. That's how a lot
-      of it has been made so far.
+      People tag the account. The good ones get reposted, credited.
     </p>
   </section>
 
   <section class="prose">
     <h2 class="d d-m">From edits to documenting it myself</h2>
     <p style="margin-top:.7rem">
-      Up to now it's mostly been editing — other people's footage, cut and captioned, credit on the
-      post. It worked, and it's how the account found an audience.
+      So far it's mostly been editing. Other people's footage, cut and captioned, credited on the
+      post. That's how the account found an audience and I'm not embarrassed by it.
     </p>
     <p>
-      The goal now is to stop editing other people's trips and start documenting my own. Same
-      countries, same brief, but shot on the ground: me in the place, with a camera, saying what
-      it's actually like to get there. Slower, fewer posts, worth more.
+      What I want now is to shoot it myself. Same countries, same brief, but me actually in the
+      place with a camera. That means fewer posts. I think they'll be better ones.
     </p>
     <p>
-      That's the same direction the <a href="/videos/">YouTube channel</a> is going, which is the
-      point — one person travelling and filming it, rather than two accounts doing different jobs.
+      The <a href="/videos/">YouTube channel</a> is heading the same way.
     </p>
   </section>
 

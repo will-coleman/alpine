@@ -64,11 +64,11 @@ export default async function home(ctx) {
     ${headline(H1, { as: "h1", size: "d-xl" })}
     <div class="mast-copy">
       <p>
-        I'm Will, based in ${site.based}. I'm working my way across Europe — overland where I can,
-        flying where I can't — and filming it as I go. London to Helsinki by train, airline reviews
-        from the seat, and what a place is actually like once you're standing in it.
+        I'm Will. I live in ${site.based} and I'm working my way across Europe with a camera.
+        Trains where they make sense, flights where they don't. The last run was London to Helsinki
+        without leaving the ground.
       </p>
-      <p>It all ends up on the channel. Newest first, below.</p>
+      <p>Everything I've put out is below, newest first.</p>
     </div>
   </div>
 

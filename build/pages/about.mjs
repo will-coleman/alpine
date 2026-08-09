@@ -3,7 +3,7 @@ import { page } from "../lib/layout.mjs";
 import { headline, assertMarked } from "../lib/headline.mjs";
 import { site, youtube, instagram } from "../../site.config.js";
 
-const H1 = "ONE PERSON, ONE *CAMERA*";
+const H1 = "I'M *WILL*";
 
 export default async function about(ctx) {
   assertMarked(H1, "about h1");
@@ -16,28 +16,19 @@ export default async function about(ctx) {
 
   <section class="prose">
     <p class="lede" style="max-width:52ch">
-      I'm Will. I'm based in ${site.based}, I fly more than is sensible, and I film most of it.
+      I'm Will. I live in ${site.based} and I spend most of my spare money on train tickets.
     </p>
     <p>
-      <a href="/videos/">Alpine Flyer</a> is the YouTube channel. It started as flight sim and
-      aircraft explainers and it's turning into a travel channel — airlines I've actually flown,
-      hotels I've actually stayed in, and what a place is like once you're standing in it.
+      <a href="/videos/">Alpine Flyer</a> is the YouTube channel. It began as flight sim. Now it's
+      mostly real trips: the flight, the route, the hotel, and whether any of it was worth doing.
     </p>
     <p>
-      I also run <a href="/instagram/">the Visit Europe Project</a> on
-      Instagram: short travel video working through the countries of Europe, one at a time. That
-      one lives entirely on Instagram — it isn't mirrored here, and the account is the place to
-      follow it.
+      <a href="/instagram/">The Visit Europe Project</a> is my Instagram. Short travel video,
+      working through the countries of Europe one at a time.
     </p>
     <p>
-      Alpine Media Group is the name over both of them. It's a studio name, the way a photographer
-      has one — not a company, not a team, not an office. It's me, a camera, a laptop and an
-      unhealthy number of boarding passes. If you email it, I'm the one who reads it.
-    </p>
-    <p>
-      What it isn't: a production house, an agency, or a group with departments. There is nobody
-      else here. That's usually the reason people get in touch, and it's the reason things take as
-      long as they take.
+      Alpine Media Group is just the name I put over both. There's nobody else here, so when you
+      email it, you get me, usually within a day or two.
     </p>
   </section>
 

@@ -10,14 +10,12 @@ const H1 = "TRAVEL, AIRLINES, AND THE *AEROPLANES* THEMSELVES";
     "what is this channel" that I've got. */
 const ABOUT = html`<div class="prose" style="margin-top:1.5rem">
   <p>
-    That's the one that says most about how I work. I booked it myself, flew it as a normal
-    passenger and said what it was actually like — which is the only version worth anyone's
-    fifteen minutes.
+    I paid for that ticket and sat in it like anyone else. The review covers the bits an airline
+    would leave out of an advert.
   </p>
   <p>
-    I'm Will. I'm based in England and I'm working my way across Europe one country at a time —
-    trains where I can, flights where I can't, filming it as I go. There's a back catalogue of
-    flight sim below and there'll be less of it from here on.
+    I'm Will, from England. The channel is turning into a travel channel. The flight sim back
+    catalogue is still down the page; there'll be less of it from here.
   </p>
 </div>`;
 
