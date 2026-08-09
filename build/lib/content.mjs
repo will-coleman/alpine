@@ -10,16 +10,23 @@ import { properties } from "../../site.config.js";
 import { SERIES } from "./feed.mjs";
 
 export async function loadContent(videoData) {
-  const videos = videoData.videos ?? [];
+  // Shorts are vertical. Their thumbnails are a tall frame jammed into a wide
+  // file and they never sit right next to a full upload, so the site shows
+  // full uploads only. They're still in videos.json.
+  const videos = (videoData.videos ?? []).filter((v) => !v.short);
   const problems = [];
 
   if (!videos.length) problems.push("no videos — the feed returned nothing usable");
 
   const videosBySeries = SERIES.map((s) => ({ ...s, videos: videos.filter((v) => v.series === s.id) }));
+
+  // Anything that matches no remaining series simply isn't shown. It's still
+  // on the channel; it just isn't what this page is for.
   const unsorted = videos.filter((v) => !v.series);
+  const shown = videos.filter((v) => v.series);
 
   // One stream, newest first. Everything is a card.
-  const index = videos
+  const index = shown
     .map((v) => ({
       date: v.published,
       title: v.title,

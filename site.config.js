@@ -82,6 +82,7 @@ export const properties = [
 
 export const nav = [
   { href: "/videos/", label: "Videos" },
+  { href: "/instagram/", label: "Instagram" },
   { href: "/partnerships/", label: "Partnerships" },
   { href: "/about/", label: "About" },
 ];

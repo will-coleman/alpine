@@ -6,10 +6,29 @@ import { site, youtube } from "../../site.config.js";
 
 const H1 = "TRAVEL, AIRLINES, AND THE *AEROPLANES* THEMSELVES";
 
-function card(video, thumb) {
-  return html`<a class="card" data-p="alpine-flyer" href="${video.url}" rel="noopener">
+/** Sits under the airline review, because that video is the best answer to
+    "what is this channel" that I've got. */
+const ABOUT = html`<div class="prose" style="margin-top:1.5rem">
+  <p>
+    That's the one that says most about how I work. I booked it myself, flew it as a normal
+    passenger and said what it was actually like — which is the only version worth anyone's
+    fifteen minutes.
+  </p>
+  <p>
+    I'm Will. I'm based in England, I fly more than is sensible, and I'm turning this into a
+    travel channel: airlines, hotels, and the places worth the detour once you've landed. There's
+    a back catalogue of flight sim below and there'll be less of it from here on.
+  </p>
+  <p>
+    If you want a camera pointed at something of yours — a route, a stay, a region —
+    <a href="/partnerships/">I'm open to partnerships</a>.
+  </p>
+</div>`;
+
+function card(video, thumb, lead = false) {
+  return html`<a class="card${lead ? " card--lead" : ""}" data-p="alpine-flyer" href="${video.url}" rel="noopener">
   ${thumb
-    ? html`<img src="${thumb.src}" srcset="${thumb.srcset}" sizes="(min-width: 60em) 20rem, (min-width: 34em) 50vw, 100vw" alt="" width="${thumb.width}" height="${thumb.height}" loading="lazy" decoding="async">`
+    ? html`<img src="${thumb.src}" srcset="${thumb.srcset}" sizes="${lead ? "(min-width: 60em) 42rem, 100vw" : "(min-width: 60em) 20rem, (min-width: 34em) 50vw, 100vw"}" alt="" width="${thumb.width}" height="${thumb.height}" loading="lazy" decoding="async">`
     : ""}
   <span class="card-meta">${video.short ? "Short" : "Video"} · ${shortDate(video.published)}</span>
   <span class="card-t">${video.title}</span>
@@ -37,27 +56,16 @@ export default async function videos(ctx) {
     (group) => html`<section class="vid-group" aria-labelledby="s-${group.id}">
     <div class="rule-head">
       <h2 class="d d-m" id="s-${group.id}">${group.name}</h2>
-      <p class="count">${group.videos.length}</p>
+      ${group.id === "airline-reviews" ? "" : html`<p class="count">${group.videos.length}</p>`}
     </div>
-    <p class="lede" style="margin:0 0 .9rem">${group.blurb}</p>
+    ${group.blurb ? html`<p class="lede" style="margin:0 0 .9rem">${group.blurb}</p>` : ""}
     <div class="cards">
-      ${group.videos.map((v) => card(v, ctx.thumbs.get(v.id)))}
+      ${group.videos.map((v, i) => card(v, ctx.thumbs.get(v.id), group.id === "airline-reviews" && i === 0))}
     </div>
+    ${group.id === "airline-reviews" ? ABOUT : ""}
   </section>`
   )}
 
-  ${ctx.unsorted.length
-    ? html`<section class="vid-group" aria-labelledby="s-rest">
-    <div class="rule-head">
-      <h2 class="d d-m" id="s-rest">Everything else</h2>
-      <p class="count">${ctx.unsorted.length}</p>
-    </div>
-    <p class="lede" style="margin:0 0 .9rem">Clips that don't sit in a series yet.</p>
-    <div class="cards">
-      ${ctx.unsorted.map((v) => card(v, ctx.thumbs.get(v.id)))}
-    </div>
-  </section>`
-    : ""}
 
   <section>
     <p class="note">

@@ -29,7 +29,8 @@ export default async function links(ctx) {
       meta: "What I deliver",
     },
     { href: youtube.channelUrl, label: "YouTube", title: "*ALPINE FLYER*", meta: youtube.handle, external: true },
-    { href: instagram.url, label: "Instagram", title: "*VISIT EUROPE* PROJECT", meta: instagram.handle, external: true },
+    { href: "/instagram/", label: "The Instagram project", title: "*VISIT EUROPE* PROJECT", meta: "What it is, and where it's going" },
+    { href: instagram.url, label: "Instagram", title: "FOLLOW THE *ACCOUNT*", meta: instagram.handle, external: true },
     { href: `mailto:${site.email}`, label: "Email", title: "GET IN *TOUCH*", meta: site.email },
   ].filter(Boolean);
 

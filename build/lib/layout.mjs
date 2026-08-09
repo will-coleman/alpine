@@ -114,6 +114,7 @@ function footer() {
     <div class="ftr-links">
       <p class="m" style="margin:0 0 .25rem">Pages</p>
       <a href="/videos/">Videos</a>
+      <a href="/instagram/">Instagram project</a>
       <a href="/partnerships/">Partnerships</a>
       <a href="/about/">About</a>
       <a href="/links/">Links</a>

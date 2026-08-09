@@ -1,6 +1,6 @@
 {
   "channelId": "UC4D2l9P7L_hJk5ZfkLD3_Xw",
-  "fetched": "2026-08-09T18:38:37.231Z",
+  "fetched": "2026-08-09T19:01:51.920Z",
   "videos": [
     {
       "id": "1wk1HcfoEbw",
@@ -97,7 +97,7 @@
       "rawTitle": "This 737 MAX has a HUGE PROBLEM...",
       "published": "2026-04-02",
       "url": "https://www.youtube.com/watch?v=hfMVuWx5qyk",
-      "series": "explainers",
+      "series": null,
       "short": false,
       "thumb": "hfMVuWx5qyk.jpg"
     },
@@ -130,7 +130,7 @@
       "rawTitle": "Aviation Facts I BET YOU DIDNT KNOW 6  #a320 #airbus #aviation #landing",
       "published": "2026-02-16",
       "url": "https://www.youtube.com/watch?v=_nnR7tdVW5A",
-      "series": "explainers",
+      "series": null,
       "short": false,
       "thumb": "_nnR7tdVW5A.jpg"
     },
@@ -141,7 +141,7 @@
       "rawTitle": "Aviation Facts I BET YOU DIDNT KNOW 5  #a320 #airbus #aviation #landing",
       "published": "2026-02-15",
       "url": "https://www.youtube.com/watch?v=lG-Bb1GlfZw",
-      "series": "explainers",
+      "series": null,
       "short": false,
       "thumb": "lG-Bb1GlfZw.jpg"
     },
@@ -163,7 +163,7 @@
       "rawTitle": "Aviation Facts I BET YOU DIDNT KNOW 4  #a320 #airbus #aviation #landing",
       "published": "2026-02-14",
       "url": "https://www.youtube.com/watch?v=ZHk0NNcDtAM",
-      "series": "explainers",
+      "series": null,
       "short": false,
       "thumb": "ZHk0NNcDtAM.jpg"
     }

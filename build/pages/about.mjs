@@ -24,7 +24,7 @@ export default async function about(ctx) {
       hotels I've actually stayed in, and what a place is like once you're standing in it.
     </p>
     <p>
-      I also run <a href="${instagram.url}" rel="me noopener">the Visit Europe Project</a> on
+      I also run <a href="/instagram/">the Visit Europe Project</a> on
       Instagram: short travel video working through the countries of Europe, one at a time. That
       one lives entirely on Instagram — it isn't mirrored here, and the account is the place to
       follow it.

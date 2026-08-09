@@ -18,24 +18,19 @@ const VIDEOS_JSON = join(ROOT, "src", "content", "videos.json");
 const THUMB_CACHE = join(ROOT, ".cache", "thumbs");
 
 /**
- * The three series that actually exist on the channel. Order is the order
- * they appear on /videos.
+ * The series on the channel. Order is the order they appear on /videos.
  *
  * A title that matches nothing lands in `null` and gets listed at the end of
  * the build so it can be sorted by hand — see `overrides` below.
  */
 export const SERIES = [
   {
+    // The id stays — it's what the title matcher keys on. The name is what
+    // the page prints, and this section carries the introduction now.
     id: "airline-reviews",
-    name: "Airline reviews",
-    blurb: "Booked it, flew it, told you what it was actually like.",
+    name: "About me",
+    blurb: "",
     test: /\bairlines?\b|\bflew it\b|\breview|\bstar airline\b|trip report|ryanair|wizz|easyjet|emirates|winair/i,
-  },
-  {
-    id: "explainers",
-    name: "Aircraft explainers",
-    blurb: "What the thing does, and what's wrong with it.",
-    test: /\bfacts?\b|problem|\bwhy\b|\bhow\b|explained|\binside\b|what happens/i,
   },
   {
     id: "flight-sim",

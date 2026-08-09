@@ -1,6 +1,6 @@
 # alpineflyer.com
 
-Travel and airline reviews. Six pages of static HTML, committed in `docs/`.
+Travel and airline reviews. Seven pages of static HTML, committed in `docs/`.
 
 GitHub Pages and Cloudflare Pages both serve that folder directly with **no
 build command and nothing installed on the server**. Node runs on your laptop
@@ -8,7 +8,8 @@ only, to regenerate `docs/` when the channel has new videos.
 
 ```
 /               home — who I am, partnerships, every video
-/videos/        the channel, sorted into series
+/videos/        about me, the airline review, and the flight sim back catalogue
+/instagram/     the Visit Europe Project — what it is and where it's going
 /partnerships/  what I deliver and how to get a rate card
 /about/         me, and where the Instagram project lives
 /links/         bio-link page, no JavaScript, 14KB

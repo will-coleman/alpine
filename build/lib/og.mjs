@@ -130,6 +130,7 @@ export async function buildOgImages(ctx, pages) {
     { file: "home", eyebrow: "Travel and airline reviews", section: "videos", title: "I FLY IT, I FILM IT, I TELL YOU IF IT WAS ANY *GOOD*", meta: `${ctx.videos.length} videos` },
     { file: "videos", eyebrow: "Alpine Flyer · YouTube", title: "TRAVEL, AIRLINES, AND THE *AEROPLANES* THEMSELVES", section: "videos", meta: `${ctx.videos.length} videos` },
     { file: "about", eyebrow: "Alpine Media Group", title: "ONE PERSON, ONE *CAMERA*", meta: "About" },
+    { file: "instagram", eyebrow: "Instagram · @visiteuropeproject", title: "THE VISIT EUROPE *PROJECT*", meta: "44 countries" },
     { file: "partnerships", eyebrow: "Available for work", title: "OPEN FOR *PARTNERSHIPS*", section: "videos", meta: "Rates on request" },
     { file: "links", eyebrow: "Alpine Media Group", title: "EVERYTHING IN ONE *PLACE*", meta: "Links" },
   ];

@@ -22,6 +22,7 @@ import { buildOgImages } from "./lib/og.mjs";
 
 import home from "./pages/home.mjs";
 import videos from "./pages/videos.mjs";
+import instagramPage from "./pages/instagram.mjs";
 import about from "./pages/about.mjs";
 import partnerships from "./pages/partnerships.mjs";
 import links from "./pages/links.mjs";
@@ -83,6 +84,7 @@ async function main() {
   const pages = [
     ...(await home(ctx)),
     ...(await videos(ctx)),
+    ...(await instagramPage(ctx)),
     ...(await about(ctx)),
     ...(await partnerships(ctx)),
     ...(await links(ctx)),
