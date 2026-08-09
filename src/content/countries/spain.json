@@ -1,0 +1,20 @@
+{
+  "name": "Spain",
+  "slug": "spain",
+  "iso": "ES",
+  "region": "Iberia",
+  "published": false,
+  "headline": "",
+  "intro": "",
+  "hero": null,
+  "mustSee": [],
+  "seasons": {
+    "spring": "",
+    "summer": "",
+    "autumn": "",
+    "winter": ""
+  },
+  "transport": "",
+  "instagram": [],
+  "updated": null
+}

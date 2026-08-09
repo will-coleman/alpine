@@ -1,0 +1,20 @@
+{
+  "name": "Belarus",
+  "slug": "belarus",
+  "iso": "BY",
+  "region": "Eastern Europe",
+  "published": false,
+  "headline": "",
+  "intro": "",
+  "hero": null,
+  "mustSee": [],
+  "seasons": {
+    "spring": "",
+    "summer": "",
+    "autumn": "",
+    "winter": ""
+  },
+  "transport": "",
+  "instagram": [],
+  "updated": null
+}

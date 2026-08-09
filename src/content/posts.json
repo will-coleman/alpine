@@ -1,0 +1,45 @@
+{
+  "_readme": "Featured Instagram posts. Add one by pasting the permalink from the app (Share → Copy link), dropping the thumbnail into src/assets/posts/, and filling in the country slug. A post without a permalink still shows on its country page but stays out of the running index, because that list is only useful if every row goes somewhere.",
+  "posts": [
+    {
+      "id": "portugal-corner",
+      "permalink": "",
+      "thumb": null,
+      "caption": "SWAP THE CROWDS FOR THIS CORNER OF *PORTUGAL*",
+      "country": "portugal",
+      "date": "2026-06-18"
+    },
+    {
+      "id": "portugal-nobody",
+      "permalink": "",
+      "thumb": null,
+      "caption": "THE *PORTUGAL* NOBODY TELLS YOU ABOUT",
+      "country": "portugal",
+      "date": "2026-05-30"
+    },
+    {
+      "id": "malta-castellania",
+      "permalink": "",
+      "thumb": null,
+      "caption": "WOULD YOU WAKE UP HERE? *CASTELLANIA*, VALLETTA",
+      "country": "malta",
+      "date": "2026-05-12"
+    },
+    {
+      "id": "estonia-coast",
+      "permalink": "",
+      "thumb": null,
+      "caption": "FIND YOUR SPOT ON THE COAST OF *ESTONIA*",
+      "country": "estonia",
+      "date": "2026-04-22"
+    },
+    {
+      "id": "cyprus-troodos",
+      "permalink": "",
+      "thumb": null,
+      "caption": "WHO ARE YOU TAKING TO *TROODOS* MOUNTAINS?",
+      "country": "cyprus",
+      "date": "2026-03-15"
+    }
+  ]
+}

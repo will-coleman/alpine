@@ -1,0 +1,20 @@
+{
+  "name": "Sweden",
+  "slug": "sweden",
+  "iso": "SE",
+  "region": "Nordics",
+  "published": false,
+  "headline": "",
+  "intro": "",
+  "hero": null,
+  "mustSee": [],
+  "seasons": {
+    "spring": "",
+    "summer": "",
+    "autumn": "",
+    "winter": ""
+  },
+  "transport": "",
+  "instagram": [],
+  "updated": null
+}

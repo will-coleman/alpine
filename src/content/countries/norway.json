@@ -1,0 +1,20 @@
+{
+  "name": "Norway",
+  "slug": "norway",
+  "iso": "NO",
+  "region": "Nordics",
+  "published": false,
+  "headline": "",
+  "intro": "",
+  "hero": null,
+  "mustSee": [],
+  "seasons": {
+    "spring": "",
+    "summer": "",
+    "autumn": "",
+    "winter": ""
+  },
+  "transport": "",
+  "instagram": [],
+  "updated": null
+}

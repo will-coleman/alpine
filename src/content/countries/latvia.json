@@ -1,0 +1,20 @@
+{
+  "name": "Latvia",
+  "slug": "latvia",
+  "iso": "LV",
+  "region": "Baltics",
+  "published": false,
+  "headline": "",
+  "intro": "",
+  "hero": null,
+  "mustSee": [],
+  "seasons": {
+    "spring": "",
+    "summer": "",
+    "autumn": "",
+    "winter": ""
+  },
+  "transport": "",
+  "instagram": [],
+  "updated": null
+}

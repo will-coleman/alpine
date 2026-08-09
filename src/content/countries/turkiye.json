@@ -1,0 +1,20 @@
+{
+  "name": "Türkiye",
+  "slug": "turkiye",
+  "iso": "TR",
+  "region": "Caucasus and edges",
+  "published": false,
+  "headline": "",
+  "intro": "",
+  "hero": null,
+  "mustSee": [],
+  "seasons": {
+    "spring": "",
+    "summer": "",
+    "autumn": "",
+    "winter": ""
+  },
+  "transport": "",
+  "instagram": [],
+  "updated": null
+}

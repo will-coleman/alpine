@@ -1,0 +1,20 @@
+{
+  "name": "Germany",
+  "slug": "germany",
+  "iso": "DE",
+  "region": "Central Europe",
+  "published": false,
+  "headline": "",
+  "intro": "",
+  "hero": null,
+  "mustSee": [],
+  "seasons": {
+    "spring": "",
+    "summer": "",
+    "autumn": "",
+    "winter": ""
+  },
+  "transport": "",
+  "instagram": [],
+  "updated": null
+}

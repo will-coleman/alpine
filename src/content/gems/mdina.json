@@ -1,0 +1,13 @@
+{
+  "name": "Mdina",
+  "slug": "mdina",
+  "country": "malta",
+  "type": "town",
+  "description": "The old capital, walled, on a hill in the middle of the island, with about 250 residents and almost no cars. Day trips leave around six and the streets go completely quiet — that's the hour worth being there for.",
+  "nearestTown": "Rabat",
+  "lat": 35.89,
+  "lng": 14.4,
+  "getting": "Bus 51, 52 or 53 from Valletta, half an hour. Enter at the main gate and leave through the Greeks' Gate on the far side.",
+  "image": null,
+  "credit": null
+}

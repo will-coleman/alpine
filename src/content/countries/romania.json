@@ -1,0 +1,46 @@
+{
+  "name": "Romania",
+  "slug": "romania",
+  "iso": "RO",
+  "region": "Eastern Europe",
+  "published": true,
+  "headline": "*ROMANIA* IS BIGGER THAN DRACULA",
+  "intro": "The castle everyone photographs has almost nothing to do with the book. The country behind it has mountains you can drive over and villages that still work the way they did.",
+  "hero": {
+    "file": "romania.jpg",
+    "alt": "the Transfăgărășan, Romania",
+    "credit": {
+      "author": "Cristian Bortes",
+      "licence": "CC BY 2.0",
+      "source": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Transfagarasan_twisty_road.jpg"
+    }
+  },
+  "mustSee": [
+    {
+      "name": "Bucharest",
+      "note": "Ugly and brilliant in the same street. The Palace of the Parliament is the second largest building on earth."
+    },
+    {
+      "name": "Brașov and Bran",
+      "note": "Bran Castle is the Dracula one. It's fine. Brașov old town is the better stop."
+    },
+    {
+      "name": "Sibiu",
+      "note": "Saxon squares, and the houses with eyes in the roofs."
+    },
+    {
+      "name": "The painted monasteries of Bucovina",
+      "note": "Exterior frescoes from the 1500s, still bright. Voroneț is the one people mean."
+    }
+  ],
+  "seasons": {
+    "spring": "April and May in the lowlands. The mountain passes are still shut — Transfăgărășan usually doesn't open until the end of June.",
+    "summer": "Hot in Bucharest, perfect in the Carpathians. This is the only window when the high roads are all open.",
+    "autumn": "September and October are the best driving months. Colour in the Apuseni, and the shepherds bringing flocks down off the tops.",
+    "winter": "Cold and snowy in the hills, greyer in the south. Ski season runs at Poiana Brașov. Mountain villages get cut off in a bad week."
+  },
+  "transport": "Trains are slow but cheap and they go almost everywhere — the CFR overnight to Timișoara or Suceava saves a hotel. For the mountains you need a car, and the Transfăgărășan and Transalpina are the whole reason to have one. Bucharest to Brașov is the one train route that's genuinely quicker than driving.",
+  "instagram": [],
+  "updated": "2026-08-09"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Italy",
+  "slug": "italy",
+  "iso": "IT",
+  "region": "Mediterranean",
+  "published": false,
+  "headline": "",
+  "intro": "",
+  "hero": null,
+  "mustSee": [],
+  "seasons": {
+    "spring": "",
+    "summer": "",
+    "autumn": "",
+    "winter": ""
+  },
+  "transport": "",
+  "instagram": [],
+  "updated": null
+}

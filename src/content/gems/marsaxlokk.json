@@ -1,0 +1,13 @@
+{
+  "name": "Marsaxlokk",
+  "slug": "marsaxlokk",
+  "country": "malta",
+  "type": "food",
+  "description": "The fishing harbour on the southeast corner, full of luzzu boats painted with eyes on the bow. Sunday morning is the fish market. The restaurants along the front are the reason to come on any other day — order whatever came in that morning.",
+  "nearestTown": "Marsaxlokk",
+  "lat": 35.84,
+  "lng": 14.54,
+  "getting": "Bus 81 or 85 from Valletta, about 40 minutes. Sunday gets busy by ten.",
+  "image": null,
+  "credit": null
+}

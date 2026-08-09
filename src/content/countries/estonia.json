@@ -1,0 +1,46 @@
+{
+  "name": "Estonia",
+  "slug": "estonia",
+  "iso": "EE",
+  "region": "Baltics",
+  "published": true,
+  "headline": "FIND YOUR SPOT ON THE COAST OF *ESTONIA*",
+  "intro": "Half the country is forest and the coast is 3,800km long once you count the islands. You will not have to share.",
+  "hero": {
+    "file": "estonia.jpg",
+    "alt": "Lahemaa, Estonia",
+    "credit": {
+      "author": "Hannu",
+      "licence": "Public domain",
+      "source": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Hara_Bay_in_Suurpea.jpg"
+    }
+  },
+  "mustSee": [
+    {
+      "name": "Tallinn Old Town",
+      "note": "Small enough to walk in an afternoon, and worth doing before the cruise ships dock at nine."
+    },
+    {
+      "name": "Saaremaa",
+      "note": "The big island. Windmills, juniper, and a meteorite crater in a farmer's field."
+    },
+    {
+      "name": "Tartu",
+      "note": "University town, better food than Tallinn, half the price."
+    },
+    {
+      "name": "Lahemaa National Park",
+      "note": "An hour from Tallinn. Bog boardwalks, manor houses and empty beaches."
+    }
+  ],
+  "seasons": {
+    "spring": "April is grey and thawing. May is the one — light until ten, birds back, nothing booked out yet.",
+    "summer": "June and July barely get dark. Midsummer is the biggest night of the year and the whole country leaves the cities for it.",
+    "autumn": "September for the colour in the bogs. October gets wet and the island ferries start cancelling in wind.",
+    "winter": "Dark by four and properly cold. The sea freezes hard enough for ice roads to the islands some years, which is a genuinely strange drive."
+  },
+  "transport": "Buses beat trains for most routes and they're cheap and modern — Lux Express between the cities. Ferries to Saaremaa and Hiiumaa go from Virtsu and Rohuküla and take cars; book ahead in July. You want a car for the coast and the bogs, and nothing else.",
+  "instagram": [],
+  "updated": "2026-08-09"
+}

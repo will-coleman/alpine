@@ -1,0 +1,46 @@
+{
+  "name": "Cyprus",
+  "slug": "cyprus",
+  "iso": "CY",
+  "region": "Mediterranean",
+  "published": true,
+  "headline": "WHO ARE YOU TAKING TO THE *TROODOS* MOUNTAINS?",
+  "intro": "Everyone books the coast. The middle of the island goes to 1,950m, and in February you can ski in the morning and swim in the afternoon.",
+  "hero": {
+    "file": "cyprus.jpg",
+    "alt": "the Troodos mountains, Cyprus",
+    "credit": {
+      "author": "TroodosMountains",
+      "licence": "CC BY-SA 3.0",
+      "source": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Replantation_of_old_mines_in_Amiantos_village_in_Troodos_Republic_of_Cyprus.jpg"
+    }
+  },
+  "mustSee": [
+    {
+      "name": "Kourion",
+      "note": "Greek and Roman ruins on a cliff above the sea. Go late for the light."
+    },
+    {
+      "name": "Paphos",
+      "note": "The mosaics are the reason. The harbour is the reason people stay too long."
+    },
+    {
+      "name": "Nicosia",
+      "note": "The last divided capital in Europe. You can cross at Ledra Street with a passport."
+    },
+    {
+      "name": "Kykkos Monastery",
+      "note": "The richest monastery on the island, at the top of a very long road."
+    }
+  ],
+  "seasons": {
+    "spring": "March to May is the best of the year. Wildflowers across the Akamas, sea warm enough by May, and the gorges have water in them.",
+    "summer": "July and August hit 40°C inland and the coast is booked solid. Troodos is ten degrees cooler and that is where locals go.",
+    "autumn": "October and November. Sea still warm, hotels emptying, and the light gets very good.",
+    "winter": "Mild on the coast, snow on Olympus. There is a small ski lift, and the joke about skiing and swimming in one day is true for about three weeks."
+  },
+  "transport": "No railway at all. Buses connect the cities and are cheap, but they stop early and don't serve the mountains usefully. Hire a car — it's the only way to do Troodos or the Akamas, and the motorways are quiet and free. Driving is on the left.",
+  "instagram": [],
+  "updated": "2026-08-09"
+}

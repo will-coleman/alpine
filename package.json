@@ -1,0 +1,21 @@
+{
+  "name": "alpineflyer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "alpineflyer.com — Alpine Media Group. Static HTML, generated from files.",
+  "scripts": {
+    "build": "node build/index.mjs",
+    "serve": "node build/serve.mjs",
+    "dev": "node build/index.mjs && node build/serve.mjs",
+    "fonts": "node build/fonts.mjs",
+    "check": "node build/check.mjs"
+  },
+  "dependencies": {
+    "satori": "^0.12.1",
+    "sharp": "^0.33.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
