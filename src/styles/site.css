@@ -277,13 +277,62 @@ section { margin-top: calc(var(--step) * 2); }
 .count { font-size: 0.875rem; color: var(--scree); margin: 0; }
 .count b { color: var(--snow); font-weight: 400; }
 
-/* 7 ----------------------------------------------------------------- index */
+/* 7 ----------------------------------------------------------------- cards */
+
+/* Everything published is a card: the still, then who it was for and when,
+   then the title in the display face. It's what a channel page and a grid
+   already look like, which is the point — the site should look like the work,
+   not like a filing system for it. */
+.cards { display: grid; gap: 2rem 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 34em) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 60em) { .cards { grid-template-columns: repeat(3, 1fr); gap: 2.25rem 1.5rem; } }
+
+.card { display: grid; gap: 0.55rem; align-content: start; text-decoration: none; }
+.card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--pitch); }
+.card-meta { display: flex; align-items: center; gap: 0.45rem; font-size: 0.8125rem; color: var(--scree); }
+.card-meta::before {
+  content: "";
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: var(--tag, var(--scree));
+  flex: none;
+}
+.card-t {
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.125rem;
+  line-height: 1.03;
+  letter-spacing: 0.008em;
+}
+.card:hover .card-t {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent);
+}
+.card[data-p="alpine-flyer"] { --tag: #FF4A3D; }
+.card[data-p="visit-europe"] { --tag: #5B8AE8; }
+
+/* The newest one runs wide. One thing leads; the rest are the grid. */
+.card--lead { grid-column: 1 / -1; }
+.card--lead .card-t { font-size: clamp(1.5rem, 5vw, 2.25rem); }
+@media (min-width: 60em) {
+  .card--lead { grid-column: span 2; }
+  .card--lead img { aspect-ratio: 16 / 9; }
+}
+
+/* 7b ---------------------------------------------------------------- index */
 
 /* The running index. One person, one output stream, two outlets — so one
    column, newest first, no cards and no grid. The channel tag is the only
    place a property colour touches the home page. */
 .index { border-top: 1px solid var(--rule); }
 .row { border-bottom: 1px solid var(--rule); position: relative; }
+/* A day's worth of output reads as one group: the date prints once at the top
+   of it, and the gap above it does the separating. */
+.row[data-day]:not(:first-child) { margin-top: 1.1rem; }
 
 .row-a {
   display: grid;
@@ -300,9 +349,11 @@ section { margin-top: calc(var(--step) * 2); }
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  /* The dot carries the property colour. The label next to it doesn't need to
+     as well — two signals for one fact is what made the list shout. */
   font-size: 0.8125rem;
   white-space: nowrap;
-  color: var(--tag);
+  color: var(--scree);
 }
 .row-tag::before { content: ""; width: 0.4375rem; height: 0.4375rem; border-radius: 50%; background: var(--tag); flex: none; }
 .row[data-p="alpine-flyer"] { --tag: #FF4A3D; }
@@ -377,11 +428,14 @@ section { margin-top: calc(var(--step) * 2); }
    Two unequal columns: what I do on the left, the most recent thing on the
    right. Not a hero with a headline over two pill buttons — the newest still
    does the job a hero image would have done, and it's real. */
-.mast { padding: calc(var(--step) * 1.25) 0 var(--step); display: grid; gap: 1.5rem; }
+.mast { padding: calc(var(--step) * 1.25) 0 var(--step); display: grid; gap: 1.25rem; }
 @media (min-width: 56.25em) {
-  .mast { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+  /* Headline left, what I actually do right. Both columns carry weight, so
+     the page doesn't open with half of it empty. */
+  .mast { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
 }
-.mast-copy p { max-width: 46ch; margin: 0.9rem 0 0; color: color-mix(in oklab, var(--snow) 88%, var(--slate)); }
+.mast-copy p { max-width: 44ch; margin: 0 0 0.9rem; color: color-mix(in oklab, var(--snow) 88%, var(--slate)); }
+.mast-copy p:last-child { margin-bottom: 0; }
 .mast-latest { display: grid; gap: 0.4rem; text-decoration: none; }
 .mast-latest img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
 .mast-latest:hover .mast-latest-t {

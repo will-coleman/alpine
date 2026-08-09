@@ -1,6 +1,6 @@
 import { html } from "../lib/html.mjs";
 import { page } from "../lib/layout.mjs";
-import { kw } from "../lib/headline.mjs";
+import { plain } from "../lib/headline.mjs";
 import { shortDate } from "../lib/components.mjs";
 import { site, youtube, instagram } from "../../site.config.js";
 
@@ -56,7 +56,7 @@ export default async function links(ctx) {
       (s) => html`<li>
       <a class="stack-link" href="${s.href}"${s.external ? html` rel="noopener"` : ""}>
         <span class="m stack-label">${s.label}</span>
-        <span class="stack-title d d-s">${kw(s.title)}</span>
+        <span class="stack-title d d-s">${plain(s.title)}</span>
         <span class="m stack-meta">${s.meta}</span>
       </a>
     </li>`

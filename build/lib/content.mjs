@@ -10,6 +10,7 @@ import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { CONTENT } from "./paths.mjs";
 import { properties, REGIONS, GEM_TYPES } from "../../site.config.js";
+import { plain } from "./headline.mjs";
 import { SERIES } from "./feed.mjs";
 
 const readJsonDir = async (dir) => {
@@ -21,6 +22,7 @@ export async function loadContent(videoData) {
   const countries = (await readJsonDir("countries")).sort((a, b) => a.name.localeCompare(b.name, "en"));
   const gems = (await readJsonDir("gems")).sort((a, b) => a.name.localeCompare(b.name, "en"));
   const posts = JSON.parse(await readFile(join(CONTENT, "posts.json"), "utf8"));
+  const travelledFile = JSON.parse(await readFile(join(CONTENT, "travelled.json"), "utf8"));
 
   const problems = [];
 
@@ -40,6 +42,20 @@ export async function loadContent(videoData) {
   }
 
   const published = countries.filter((c) => c.published);
+
+  // Where he's actually been. Separate from whether a guide is written, which
+  // is the whole point — the list of visits runs ahead of the writing.
+  const bySlugAll = new Map(countries.map((c) => [c.slug, c]));
+  const travelled = [];
+  for (const slug of travelledFile.countries ?? []) {
+    const match = bySlugAll.get(slug);
+    if (!match) {
+      problems.push(`travelled.json: "${slug}" is not a country slug`);
+      continue;
+    }
+    travelled.push(match);
+  }
+
   const gemsByCountry = new Map();
   for (const g of gems) {
     if (!gemsByCountry.has(g.country)) gemsByCountry.set(g.country, []);
@@ -66,7 +82,8 @@ export async function loadContent(videoData) {
     videos,
     videosBySeries,
     unsorted,
-    counts: { covered: published.length, total: countries.length },
+    travelled,
+    counts: { covered: published.length, total: countries.length, travelled: travelled.length },
     problems,
     index: runningIndex({ videos, countries: published, posts: posts.posts ?? [] }),
   };
@@ -90,6 +107,7 @@ function runningIndex({ videos, countries, posts }) {
       date: v.published,
       property: "alpine-flyer",
       title: v.marked,
+      titlePlain: plain(v.title),
       href: v.url,
       external: true,
       thumb: v.thumb,
@@ -102,9 +120,12 @@ function runningIndex({ videos, countries, posts }) {
       date: c.updated,
       property: "visit-europe",
       title: c.headline,
+      titlePlain: plain(c.headline),
       href: `/europe/countries/${c.slug}/`,
       external: false,
       thumb: null,
+      hero: c.hero?.file ?? null,
+      slug: c.slug,
       kind: "Guide",
     });
   }
@@ -115,6 +136,7 @@ function runningIndex({ videos, countries, posts }) {
       date: p.date,
       property: "visit-europe",
       title: p.caption,
+      titlePlain: plain(p.caption),
       href: p.permalink,
       external: true,
       thumb: p.thumb ?? null,

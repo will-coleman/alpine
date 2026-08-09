@@ -11,19 +11,26 @@ const H1 = "*44* COUNTRIES, ONE AT A TIME";
 export default async function europe(ctx) {
   assertMarked(H1, "europe h1");
 
-  const guides = [];
-  for (const c of ctx.published) {
-    const shot = c.hero
-      ? await picture(join(SRC, "assets", "heroes", c.hero.file), {
-          alt: "",
-          sizes: "(min-width: 40em) 30rem, 100vw",
-          widths: [480, 960],
-        })
-      : null;
-    guides.push({ country: c, shot });
+  // Countries travelled, in the order they're listed in travelled.json.
+  // The ones written up show as a photograph; the rest show as a name until
+  // the guide exists.
+  const visited = [];
+  for (const c of ctx.travelled) {
+    const shot =
+      c.published && c.hero
+        ? await picture(join(SRC, "assets", "heroes", c.hero.file), {
+            alt: "",
+            sizes: "(min-width: 40em) 30rem, 100vw",
+            widths: [480, 960],
+          })
+        : null;
+    visited.push({ country: c, shot });
   }
 
-  const remaining = ctx.countries.filter((c) => !c.published);
+  const written = visited.filter((v) => v.shot);
+  const unwritten = visited.filter((v) => !v.shot);
+  const travelledSlugs = new Set(ctx.travelled.map((c) => c.slug));
+  const remaining = ctx.countries.filter((c) => !travelledSlugs.has(c.slug));
 
   const main = html`
 <div class="wrap">
@@ -35,13 +42,13 @@ export default async function europe(ctx) {
     </p>
   </div>
 
-  <section aria-labelledby="written">
+  <section aria-labelledby="travelled">
     <div class="rule-head">
-      <h2 class="d d-m" id="written">Written so far</h2>
-      <p class="count">${ctx.counts.covered} of ${ctx.counts.total}</p>
+      <h2 class="d d-m" id="travelled">Countries travelled</h2>
+      <p class="count">${ctx.counts.travelled} of ${ctx.counts.total}</p>
     </div>
     <div class="guides">
-      ${guides.map(
+      ${written.map(
         ({ country: c, shot }) => html`<a class="guide" href="/europe/countries/${c.slug}/">
         ${shot}
         <span class="guide-t">${c.name}</span>
@@ -49,12 +56,18 @@ export default async function europe(ctx) {
       </a>`
       )}
     </div>
+    ${unwritten.length
+      ? html`<p class="m" style="margin-top:1.5rem">Been, not written up yet:</p>
+    <div class="covered">
+      ${unwritten.map(({ country: c }) => html`<span>${c.name}</span>`)}
+    </div>`
+      : ""}
   </section>
 
   <section aria-labelledby="rest">
     <div class="rule-head">
-      <h2 class="d d-m" id="rest">Not yet</h2>
-      <p class="count">${remaining.length} to go</p>
+      <h2 class="d d-m" id="rest">Still to go</h2>
+      <p class="count">${remaining.length} left</p>
     </div>
     <p style="max-width:46ch">
       ${remaining.map((c) => c.name).join(", ")}.

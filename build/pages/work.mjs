@@ -7,18 +7,23 @@ const H1 = "WORK WITH *ME*";
 
 const DELIVERABLES = [
   {
-    name: "Long-form YouTube",
-    what: "Eight to eighteen minutes, shot on the route or in the destination, cut in my own voice. Airline reviews are the format the channel is known for and the one that performs.",
+    name: "Holiday and hotel reviews",
+    what: "I go, I stay, and I say what it was actually like — the room, the food, the transfer, the bit the brochure leaves out. Filmed as a full trip rather than a walkthrough. If it's not good I'll say so, which is the only reason anyone believes the ones that are.",
+    meta: "Full trip · 3–5 weeks",
+  },
+  {
+    name: "Adventures on YouTube",
+    what: "Long-form travel, eight to eighteen minutes. A route, a region, a road, a flight worth talking about. This is where the channel is going and it's the format I most want to be booked for.",
     meta: "1 video · 3–5 weeks",
   },
   {
-    name: "Short-form vertical",
-    what: "Reels and Shorts, 15 to 60 seconds, cut for sound-off viewing with the text treatment both accounts use. Usually a set of three to five from one trip rather than a single clip.",
+    name: "Product reviews on Instagram",
+    what: "Kit that actually goes in the bag and gets used on camera — luggage, cameras, boots, travel tech. Short vertical, cut for sound-off, in the text treatment the account already uses. Usually a set of three to five, not one clip.",
     meta: "3–5 clips · 2 weeks",
   },
   {
     name: "Stills",
-    what: "Licensed stills from the same shoot, delivered as full-resolution files with usage agreed in writing. Cabin, aircraft exterior, and destination.",
+    what: "Full-resolution stills from the same shoot, usage agreed in writing. Destination, cabin, and the product in the place it's meant to be used.",
     meta: "Delivered with the edit",
   },
 ];
@@ -31,8 +36,9 @@ export default async function work(ctx) {
   <div class="page-head">
     ${headline(H1, { as: "h1", size: "d-xl" })}
     <p class="lede">
-      I work with airlines, tourist boards and travel brands. One person, so one project at a time,
-      and I say no to things I can't do properly.
+      I'm up for reviewing holidays, doing product reviews on Instagram, and taking a camera
+      somewhere for the channel. Airlines, tourist boards, hotels and travel brands. One person, so
+      one project at a time, and I say no to things I can't do properly.
     </p>
   </div>
 
@@ -51,6 +57,10 @@ export default async function work(ctx) {
         trying to pull visitors away from its own overrun capital is a natural fit.
       </p>
       <p>
+        <strong>Hotels and holiday operators.</strong> Send me and I'll review it properly. A stay,
+        a resort, a route, a package — filmed as the trip a viewer would actually take.
+      </p>
+      <p>
         <strong>Travel brands.</strong> Kit that goes in the bag and gets used on camera because
         it's genuinely in the bag. I don't do unboxings.
       </p>
@@ -64,7 +74,8 @@ export default async function work(ctx) {
       <p>
         The YouTube audience is people who check which aircraft is on the route before they book,
         and who will watch fifteen minutes about a seat. They're the ones who notice when a review
-        is bought, which is why the ones I do aren't written for me.
+        is bought, which is why the ones I do aren't written for me. The channel is moving from
+        flight sim to travel, and that audience is coming with it.
       </p>
       <p>
         The Instagram audience is smaller and moves faster. It's people planning a trip in the next

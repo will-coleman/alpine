@@ -32,16 +32,16 @@ export const SERIES = [
     test: /\bairlines?\b|\bflew it\b|\breview|\bstar airline\b|trip report|ryanair|wizz|easyjet|emirates|winair/i,
   },
   {
-    id: "flight-sim",
-    name: "Flight sim",
-    blurb: "MSFS, mostly the Fenix A320, mostly going wrong.",
-    test: /\bmsfs|flight ?sim|\bfenix\b|shared cockpit|speed ?run|\bsim\b|\bfs20\d\d\b|racing a jet/i,
-  },
-  {
     id: "explainers",
     name: "Aircraft explainers",
     blurb: "What the thing does, and what's wrong with it.",
     test: /\bfacts?\b|problem|\bwhy\b|\bhow\b|explained|\binside\b|what happens/i,
+  },
+  {
+    id: "flight-sim",
+    name: "Flight sim",
+    blurb: "The back catalogue. Less of this from here on.",
+    test: /\bmsfs|flight ?sim|\bfenix\b|shared cockpit|speed ?run|\bsim\b|\bfs20\d\d\b|racing a jet/i,
   },
 ];
 

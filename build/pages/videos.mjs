@@ -1,22 +1,19 @@
 import { html, attrs } from "../lib/html.mjs";
 import { page } from "../lib/layout.mjs";
-import { headline, kw, assertMarked, plain } from "../lib/headline.mjs";
+import { headline, assertMarked, plain } from "../lib/headline.mjs";
 import { shortDate } from "../lib/components.mjs";
 import { site, youtube } from "../../site.config.js";
 
-const H1 = "EVERY VIDEO ON THE *CHANNEL*";
+const H1 = "TRAVEL, AIRLINES, AND THE *AEROPLANES* THEMSELVES";
 
-function row(video, thumb) {
-  return html`<li class="row row--vid">
-  <a class="row-a" href="${video.url}" rel="noopener">
-    <span class="row-date">${shortDate(video.published)}</span>
-    <span class="row-tag">${video.short ? "Short" : "Video"}</span>
-    <span class="row-t">${kw(video.marked)}</span>
-    ${thumb
-      ? html`<img class="row-thumb" src="${thumb.src}" srcset="${thumb.srcset}" sizes="176px" alt="" width="${thumb.width}" height="${thumb.height}" loading="lazy" decoding="async">`
-      : html`<span class="row-thumb" aria-hidden="true"></span>`}
-  </a>
-</li>`;
+function card(video, thumb) {
+  return html`<a class="card" data-p="alpine-flyer" href="${video.url}" rel="noopener">
+  ${thumb
+    ? html`<img src="${thumb.src}" srcset="${thumb.srcset}" sizes="(min-width: 60em) 20rem, (min-width: 34em) 50vw, 100vw" alt="" width="${thumb.width}" height="${thumb.height}" loading="lazy" decoding="async">`
+    : ""}
+  <span class="card-meta">${video.short ? "Short" : "Video"} · ${shortDate(video.published)}</span>
+  <span class="card-t">${video.title}</span>
+</a>`;
 }
 
 export default async function videos(ctx) {
@@ -30,8 +27,9 @@ export default async function videos(ctx) {
     <p class="eyebrow">Alpine Flyer · YouTube</p>
     ${headline(H1, { as: "h1", size: "d-xl" })}
     <p class="lede">
-      The feed on this page is pulled straight from the channel when the site is built, so it's
-      whatever is actually up there. Sorted into the three things I keep making.
+      Pulled straight from the channel when the site is built, so it's whatever is actually up
+      there. The channel is turning into a travel channel — the flight sim back catalogue is still
+      here, at the bottom, where it now belongs.
     </p>
   </div>
 
@@ -42,9 +40,9 @@ export default async function videos(ctx) {
       <p class="count">${group.videos.length}</p>
     </div>
     <p class="lede" style="margin:0 0 .9rem">${group.blurb}</p>
-    <ol class="index vid-list">
-      ${group.videos.map((v) => row(v, ctx.thumbs.get(v.id)))}
-    </ol>
+    <div class="cards">
+      ${group.videos.map((v) => card(v, ctx.thumbs.get(v.id)))}
+    </div>
   </section>`
   )}
 
@@ -55,9 +53,9 @@ export default async function videos(ctx) {
       <p class="count">${ctx.unsorted.length}</p>
     </div>
     <p class="lede" style="margin:0 0 .9rem">Clips that don't sit in a series yet.</p>
-    <ol class="index vid-list">
-      ${ctx.unsorted.map((v) => row(v, ctx.thumbs.get(v.id)))}
-    </ol>
+    <div class="cards">
+      ${ctx.unsorted.map((v) => card(v, ctx.thumbs.get(v.id)))}
+    </div>
   </section>`
     : ""}
 
