@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { html, raw } from "../lib/html.mjs";
+import { html } from "../lib/html.mjs";
 import { page } from "../lib/layout.mjs";
 import { headline, assertMarked } from "../lib/headline.mjs";
 import { shortDate } from "../lib/components.mjs";
@@ -20,8 +20,8 @@ export default async function home(ctx) {
     if (file) {
       soonImg = await picture(file, {
         alt: "",
-        sizes: "(min-width: 64em) 62rem, 100vw",
-        widths: [640, 1280, 1920],
+        sizes: "(min-width: 56.25em) 36rem, 100vw",
+        widths: [480, 960, 1440],
         className: "soon-img",
         eager: true,
       });
@@ -75,9 +75,11 @@ export default async function home(ctx) {
   ${upcoming?.live
     ? html`<section class="soon" aria-labelledby="soon">
     ${soonImg}
-    <p class="soon-flag"${soonImg ? raw(' style="margin-top:.9rem"') : ""}>Coming soon</p>
-    ${headline(upcoming.title, { as: "h2", size: "d-l", id: "soon", className: "soon-t" })}
-    <p class="soon-note">${upcoming.note}</p>
+    <div class="soon-copy">
+      <p class="soon-flag">Coming soon</p>
+      ${headline(upcoming.title, { as: "h2", size: "d-m", id: "soon" })}
+      <p class="soon-note">${upcoming.note}</p>
+    </div>
   </section>`
     : ""}
 

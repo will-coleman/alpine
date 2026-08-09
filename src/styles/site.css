@@ -431,8 +431,14 @@ section { margin-top: calc(var(--step) * 2); }
 /* --- coming soon ----------------------------------------------------------
    The next thing, before the things already out. Full-bleed artwork with the
    title under it — the same shape as a card, at the size of an announcement. */
-.soon { margin-top: calc(var(--step) * 2); }
+/* Side by side, not a billboard. The artwork is the size of a card, and the
+   words sit next to it rather than under a full-width image. */
+.soon { margin-top: calc(var(--step) * 2); display: grid; gap: 1rem; }
+@media (min-width: 56.25em) {
+  .soon { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 2.5rem; align-items: center; }
+}
 .soon-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--pitch); }
+.soon-copy { align-self: center; }
 .soon-flag {
   display: inline-flex;
   align-items: center;
@@ -442,8 +448,7 @@ section { margin-top: calc(var(--step) * 2); }
   margin: 0 0 0.6rem;
 }
 .soon-flag::before { content: ""; width: 0.4375rem; height: 0.4375rem; border-radius: 50%; background: var(--sodium); }
-.soon-t { margin-top: 0.9rem; }
-.soon-note { color: var(--scree); margin: 0.5rem 0 0; max-width: 46ch; }
+.soon-note { color: var(--scree); margin: 0.5rem 0 0; max-width: 40ch; }
 
 /* --- contact --------------------------------------------------------------
    The email address is the page. It gets set at display size because it's the
