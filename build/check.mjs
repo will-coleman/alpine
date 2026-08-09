@@ -6,17 +6,15 @@
  *
  * 1  every colour pair the site can produce, against WCAG AA
  * 2  no property colour anywhere in the shell — header, nav, footer
- * 3  44 countries, unique ISO codes, known regions
- * 4  client JS only on the two filter pages
- * 5  /links weight
- * 6  headings in order on every page
+ * 3  no client JavaScript anywhere
+ * 4  /links weight
+ * 5  headings in order on every page
  */
 
 import { readFile, readdir, stat } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { gzipSync } from "node:zlib";
-import { DIST, CONTENT } from "./lib/paths.mjs";
-import { REGIONS } from "../site.config.js";
+import { DIST } from "./lib/paths.mjs";
 
 let failures = 0;
 const fail = (msg) => {
@@ -43,9 +41,7 @@ const SNOW = "#EEF1F2";
 const SCREE = "#8A98A0";
 const SODIUM = "#F0932B";
 const AF_RED = "#FF4A3D";
-const EU_LIT = "#5B8AE8";
-const EU_DEEP = "#003399";
-const EU_YELLOW = "#FFCC00";
+
 
 // [name, foreground, background, minimum]
 // 4.5 is AA for body text; 3.0 is AA for large text and for UI borders.
@@ -57,12 +53,6 @@ const PAIRS = [
   ["sodium on slate", SODIUM, SLATE, 4.5],
   ["sodium on pitch", SODIUM, PITCH, 4.5],
   ["AF red on slate", AF_RED, SLATE, 4.5],
-  ["EU lit blue on slate", EU_LIT, SLATE, 4.5],
-  ["snow on EU deep blue", SNOW, EU_DEEP, 4.5],
-  ["star yellow on EU deep blue", EU_YELLOW, EU_DEEP, 4.5],
-  ["star yellow on slate", EU_YELLOW, SLATE, 4.5],
-  ["slate on lit blue (tile hover)", SLATE, EU_LIT, 4.5],
-  ["EU lit blue border on slate", EU_LIT, SLATE, 3.0],
 ];
 
 function checkContrast() {
@@ -74,19 +64,11 @@ function checkContrast() {
     else fail(line);
   }
 
-  // The pairs the site must never produce, asserted as failures on purpose.
-  const banned = [
-    ["star yellow on slate as body text is fine, but on snow it is not", EU_YELLOW, SNOW],
-  ];
-  for (const [name, fg, bg] of banned) {
-    const r = ratio(fg, bg);
-    if (r >= 4.5) fail(`expected ${name} to be unusable, got ${r.toFixed(2)}:1`);
-  }
 }
 
 /* ------------------------------------------------------------------- shell */
 
-const PROPERTY_COLOURS = [/#c1170c/i, /#ff4a3d/i, /#003399/i, /#5b8ae8/i, /#ffcc00/i];
+const PROPERTY_COLOURS = [/#c1170c/i, /#ff4a3d/i];
 
 async function htmlFiles(dir = DIST, out = []) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -147,29 +129,6 @@ async function checkShell(files) {
 
 /* ---------------------------------------------------------------- content */
 
-async function checkContent() {
-  console.log("\n  Content");
-  const files = (await readdir(join(CONTENT, "countries"))).filter((f) => f.endsWith(".json"));
-  const countries = await Promise.all(
-    files.map(async (f) => JSON.parse(await readFile(join(CONTENT, "countries", f), "utf8")))
-  );
-
-  countries.length === 44 ? pass("44 countries") : fail(`${countries.length} countries, expected 44`);
-
-  const isos = countries.map((c) => c.iso);
-  new Set(isos).size === isos.length ? pass("ISO codes unique") : fail("duplicate ISO code");
-  isos.every((i) => /^[A-Z]{2}$/.test(i)) ? pass("ISO codes well formed") : fail("malformed ISO code");
-
-  const badRegion = countries.filter((c) => !REGIONS.includes(c.region));
-  badRegion.length === 0
-    ? pass(`regions all known (${new Set(countries.map((c) => c.region)).size} in use)`)
-    : fail(`unknown region on ${badRegion.map((c) => c.slug).join(", ")}`);
-
-  const published = countries.filter((c) => c.published);
-  published.every((c) => c.hero && c.headline && c.updated)
-    ? pass(`${published.length} published guides, all with hero, headline and date`)
-    : fail("a published guide is missing a hero, headline or updated date");
-}
 
 /* ---------------------------------------------------------- js and weight */
 
@@ -182,11 +141,10 @@ async function checkJs(files) {
     const html = (await readFile(file, "utf8")).replace(/<!--[\s\S]*?-->/g, "");
     if (/<script(?![^>]*application\/ld\+json)/.test(html)) withJs.push(relative(DIST, file));
   }
-  const expected = ["europe/countries/index.html", "europe/hidden-gems/index.html"];
-  const unexpected = withJs.filter((f) => !expected.includes(f));
-  unexpected.length === 0
-    ? pass(`script only on ${withJs.join(" and ")}`)
-    : fail(`unexpected script on ${unexpected.join(", ")}`);
+  // Nothing on this site needs state, so nothing on it ships JavaScript.
+  withJs.length === 0
+    ? pass("no client JavaScript on any page")
+    : fail(`script found on ${withJs.join(", ")}`);
 
   const links = await readFile(join(DIST, "links", "index.html"));
   const raw = links.length / 1024;
@@ -224,7 +182,6 @@ async function checkHeadings(files) {
 const files = await htmlFiles();
 checkContrast();
 await checkShell(files);
-await checkContent();
 await checkJs(files);
 await checkHeadings(files);
 

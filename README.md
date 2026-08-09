@@ -1,154 +1,124 @@
 # alpineflyer.com
 
-Static HTML. The finished site is committed in `docs/` — GitHub Pages and
-Cloudflare Pages both serve that folder directly with **no build command and
-nothing installed on the server**.
+Travel and airline reviews. Six pages of static HTML, committed in `docs/`.
 
-Node runs on your laptop only, to regenerate `docs/` when you change content.
+GitHub Pages and Cloudflare Pages both serve that folder directly with **no
+build command and nothing installed on the server**. Node runs on your laptop
+only, to regenerate `docs/` when the channel has new videos.
+
+```
+/               home — who I am, partnerships, every video
+/videos/        the channel, sorted into series
+/partnerships/  what I deliver and how to get a rate card
+/about/         me, and where the Instagram project lives
+/links/         bio-link page, no JavaScript, 14KB
+404
+```
 
 ---
 
-## Add a country guide
+## The one thing you'll do regularly
 
-Two minutes, two files.
-
-**1. Fill in the country.** Every one of the 44 already exists as a stub in
-`src/content/countries/`. Open the one you want:
-
-```bash
-open src/content/countries/albania.json
-```
-
-Set `published` to `true` and fill in the rest:
-
-```json
-{
-  "name": "Albania",
-  "slug": "albania",
-  "iso": "AL",
-  "region": "Balkans",
-  "published": true,
-  "headline": "THE *ALBANIA* NOBODY BOOKED",
-  "intro": "One line, house voice. Name the place.",
-  "hero": {
-    "file": "albania.jpg",
-    "alt": "What's in the photo",
-    "credit": { "author": "Who shot it", "licence": "CC BY-SA 4.0", "source": "Wikimedia Commons", "url": "https://..." }
-  },
-  "mustSee": [{ "name": "Berat", "note": "One sentence." }],
-  "seasons": { "spring": "", "summer": "", "autumn": "", "winter": "" },
-  "transport": "Trains, buses, whether you need a car.",
-  "instagram": [],
-  "updated": "2026-08-09"
-}
-```
-
-The `*asterisks*` in `headline` mark the word that gets knocked out in colour.
-Pick the word carrying the information — the country, the place, the number.
-The build shouts at you if a headline has no marked word.
-
-Drop the hero photo in `src/assets/heroes/` with the filename you put in
-`hero.file`. Any size — the build makes AVIF, WebP and JPEG at three widths.
-
-**2. Add its places.** One file per place in `src/content/gems/`:
-
-```json
-{
-  "name": "Theth",
-  "slug": "theth",
-  "country": "albania",
-  "type": "mountain",
-  "description": "A short paragraph. What it actually is.",
-  "nearestTown": "Shkodër",
-  "lat": 42.39,
-  "lng": 19.77,
-  "getting": "How you actually get there.",
-  "image": null,
-  "credit": null
-}
-```
-
-`type` must be one of: `coast`, `mountain`, `town`, `ruin`, `food`,
-`viewpoint`.
-
-**3. Build and commit.**
+Publish a video on YouTube, then:
 
 ```bash
 npm run build && npm run check
 ```
 
-Then commit — including `docs/`, which is the site.
-
-The country appears on `/europe`, in the country index, in the running index on
-the home page, in the hidden-gems list, in the sitemap, and gets its own share
-image. Nothing else needs touching.
+Commit, including `docs/`. That's it. The feed is read at build time, so the
+new video appears on the home page and on `/videos/` on its own — nothing to
+type twice.
 
 ---
 
-## The other commands
+## Sorting videos into series
 
-```bash
-npm run build            # fetch the YouTube feed, regenerate docs/
-npm run build -- --offline   # skip the network, use the committed videos.json
-npm run check            # contrast, shell colours, ISO codes, JS budget, headings
-npm run serve            # look at docs/ locally on :4321
-```
-
-`npm run check` is the one that matters before you push. It proves the things
-that are easy to break by accident: every colour pair against WCAG AA, that no
-property colour has leaked into the header or footer, that there are still 44
-countries with valid ISO codes, that only the two filter pages ship JavaScript,
-and that every page has exactly one `h1` with no skipped levels.
-
----
-
-## Videos
-
-Pulled from the channel's public RSS at build time — no API key, no quota.
-The channel ID lives in `site.config.js`. Results are written to
-`src/content/videos.json` and committed, so an offline build produces the same
-site.
-
-If the feed is unreachable and there's no committed `videos.json`, the build
-**fails** rather than shipping an empty videos page.
-
-Videos are sorted into series by matching the title. Anything that doesn't
-match is listed at the end of the build:
+Videos are sorted by matching the title. Anything that doesn't match gets
+listed at the end of the build:
 
 ```
 Videos that didn't match a series:
   - lDQ2VsCG1Rg  "The rudder gets stuck mid flight"
 ```
 
-Put it where it belongs by adding one line to `overrides` in
-`build/lib/feed.mjs` — don't loosen the regexes, they sort every future upload.
+Put it where it belongs with one line in `overrides` at the top of
+`build/lib/feed.mjs`:
 
----
-
-## Instagram posts
-
-`src/content/posts.json`. A post needs a real permalink (Share → Copy link) to
-appear in the running index. Without one it still shows on its country page,
-but it stays out of a list whose only job is going somewhere.
-
----
-
-## Fonts
-
-Three faces, self-hosted, subset, 51KB total. Archivo Condensed for display,
-Source Sans 3 for body, IBM Plex Mono for coordinates and dates. All SIL Open
-Font License — see `src/fonts/OFL.txt`.
-
-You only need to regenerate them if you add a language with characters the
-subset doesn't carry:
-
-```bash
-pip install "fonttools[woff]" brotli
-python3 build/subset-fonts.py /path/to/source-ttfs
+```js
+export const overrides = {
+  lDQ2VsCG1Rg: "flight-sim",
+};
 ```
 
-Sources are listed in that script's docstring. The `.woff2` files are
-committed, so a normal build never needs Python.
+Don't loosen the regexes to catch it — they sort every future upload too, and
+a loose one mis-sorts everything after it.
+
+Series live in the same file, in the order they appear on the page. Airline
+reviews first, flight sim last, because that's the direction the channel is
+going.
+
+---
+
+## Editing the words
+
+| What | Where |
+|---|---|
+| Home headline and intro | `build/pages/home.mjs` |
+| Partnership pitch on the home page | `build/pages/home.mjs`, the `.pitch` section |
+| What you deliver, and rates | `build/pages/partnerships.mjs`, the `DELIVERABLES` array |
+| About | `build/pages/about.mjs` |
+| The links stack | `build/pages/links.mjs` |
+| Email, handles, nav, channel ID | `site.config.js` |
+
+Headlines mark the highlighted word with `*asterisks*`:
+
+```js
+const H1 = "OPEN FOR *PARTNERSHIPS*";
+```
+
+Pick the word carrying the information. The build tells you if a headline
+forgot one.
+
+---
+
+## Commands
+
+```bash
+npm run build            # read the feed, regenerate docs/
+npm run build -- --offline   # skip the network, use the committed videos.json
+npm run check            # contrast, shell colours, JS budget, heading order
+npm run serve            # look at docs/ locally on :4321
+```
+
+`npm run check` is the one to run before pushing. It proves every colour pair
+against WCAG AA, that no property red has leaked into the header or footer,
+that no page ships JavaScript, that `/links` is under 30KB, and that every
+page has exactly one `h1` with no skipped levels.
+
+---
+
+## How it's put together
+
+- **No framework.** `build/index.mjs` renders template literals to HTML.
+  `build/lib/html.mjs` is a 30-line escaping primitive; that's the whole
+  "templating engine".
+- **Videos** come from the channel's public RSS — no API key, no quota.
+  Results are written to `src/content/videos.json` and committed, so an
+  offline build produces the same site. If the feed is unreachable and there's
+  no committed copy, the build **fails** rather than shipping an empty page.
+- **Thumbnails** are cached locally at build, so no page hotlinks to Google.
+  Vertical uploads arrive pillarboxed into a 16:9 file; the pipeline detects
+  the black bars from the pixels and crops them off.
+- **Images** are AVIF, WebP and JPEG at three widths, with explicit dimensions
+  so nothing moves as the page loads.
+- **Fonts** are self-hosted, subset, 51KB for three faces. All SIL Open Font
+  License — see `src/fonts/OFL.txt`. Regenerate with
+  `python3 build/subset-fonts.py` only if you add characters the subset
+  doesn't carry.
+- **Share images** are drawn at build with satori, in the site's own type.
+- **No client JavaScript at all**, and no analytics. There's a commented-out
+  Plausible tag in the `<head>` — uncomment it in `build/lib/layout.mjs` if
+  you want it.
 
 ---
 
@@ -156,25 +126,22 @@ committed, so a normal build never needs Python.
 
 **GitHub Pages** — Settings → Pages → Deploy from a branch → `main` / `/docs`.
 
-**Cloudflare Pages** — connect the repo, leave the build command empty, set the
-output directory to `docs`.
+**Cloudflare Pages** — connect the repo, leave the build command empty, output
+directory `docs`.
 
-Either way there is no build step on the server.
-
-`PUBLIC_FORMSPREE_ENDPOINT` in `.env` turns the form on `/europe/featured/` on.
-Without it the page tells people to email instead, which works just as well.
-
-Analytics are off. There's a commented-out Plausible tag in the `<head>` of
-every page — uncomment it in `build/lib/layout.mjs` if you ever want it.
+`PUBLIC_FORMSPREE_ENDPOINT` in `.env` is unused right now; enquiries go to
+email by design.
 
 ---
 
-## The 44
+## Removed, and how to get it back
 
-Sovereign states of Europe with an official ISO 3166-1 alpha-2 code, plus the
-Caucasus three and Türkiye, minus the five micro-states (Andorra,
-Liechtenstein, Monaco, San Marino, Vatican City). That's exactly 44.
+An earlier version had a Visit Europe section: 44 country stubs, six written
+guides, 29 places with coordinates, filters, and a 44-tile board. It was cut so
+the site is about you rather than about a second project.
 
-It's a judgment call and it's one file — `build/seed-countries.mjs`. Change the
-list, delete the JSON for anything you dropped, rerun it. The count on the site
-is computed from what's on disk, so it follows automatically.
+It's all in commit `42c60ae` if you ever want it:
+
+```bash
+git checkout 42c60ae -- src/content/countries src/content/gems
+```

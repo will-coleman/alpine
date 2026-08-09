@@ -19,11 +19,15 @@ export default async function about(ctx) {
       I'm Will. I'm based in ${site.based}, I fly more than is sensible, and I film most of it.
     </p>
     <p>
-      Two things come out of that. <a href="/videos/">Alpine Flyer</a> is the YouTube channel —
-      airline reviews from the seat, the Fenix A320 in the simulator, and explainers about aircraft
-      that are more interesting than the manufacturer would like. The
-      <a href="/europe/">Visit Europe Project</a> is the Instagram side: all 44 countries in Europe,
-      one guide at a time, focused on the places that don't show up in a top ten.
+      <a href="/videos/">Alpine Flyer</a> is the YouTube channel. It started as flight sim and
+      aircraft explainers and it's turning into a travel channel — airlines I've actually flown,
+      hotels I've actually stayed in, and what a place is like once you're standing in it.
+    </p>
+    <p>
+      I also run <a href="${instagram.url}" rel="me noopener">the Visit Europe Project</a> on
+      Instagram: short travel video working through the countries of Europe, one at a time. That
+      one lives entirely on Instagram — it isn't mirrored here, and the account is the place to
+      follow it.
     </p>
     <p>
       Alpine Media Group is the name over both of them. It's a studio name, the way a photographer
@@ -57,7 +61,8 @@ export default async function about(ctx) {
 
   <section>
     <p class="note">
-      Working on something and want me involved? <a href="/work-with-me/">That's over here</a>.
+      Working on something and want me involved? <a href="/partnerships/">That's over here</a> —
+      I'm open to reviews, trips and product work.
     </p>
   </section>
 </div>

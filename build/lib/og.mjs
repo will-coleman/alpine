@@ -127,22 +127,11 @@ export async function buildOgImages(ctx, pages) {
 
   const cards = [
     { file: "default", eyebrow: "Alpine Media Group", title: "EVERYTHING I *MAKE*", meta: "" },
-    { file: "home", eyebrow: "Alpine Media Group", title: "AIRLINE REVIEWS, THE *A320*, AND 44 COUNTRIES", meta: `${ctx.index.length} published` },
-    { file: "videos", eyebrow: "Alpine Flyer · YouTube", title: "EVERY VIDEO ON THE *CHANNEL*", section: "videos", meta: `${ctx.videos.length} videos` },
-    { file: "europe", eyebrow: "Visit Europe Project", title: "*44* COUNTRIES, ONE AT A TIME", section: "europe", meta: `${ctx.counts.covered} / ${ctx.counts.total}` },
-    { file: "countries", eyebrow: "Visit Europe Project", title: "ALL *44*, COVERED OR NOT", section: "europe", meta: `${ctx.counts.covered} live` },
-    { file: "gems", eyebrow: "Visit Europe Project", title: `*${ctx.gems.length}* PLACES WORTH THE DETOUR`, section: "europe", meta: "Hidden gems" },
-    { file: "featured", eyebrow: "Visit Europe Project", title: "GET YOUR *CLIP* ON THE GRID", section: "europe", meta: "Get featured" },
+    { file: "home", eyebrow: "Travel and airline reviews", section: "videos", title: "I FLY IT, I FILM IT, I TELL YOU IF IT WAS ANY *GOOD*", meta: `${ctx.videos.length} videos` },
+    { file: "videos", eyebrow: "Alpine Flyer · YouTube", title: "TRAVEL, AIRLINES, AND THE *AEROPLANES* THEMSELVES", section: "videos", meta: `${ctx.videos.length} videos` },
     { file: "about", eyebrow: "Alpine Media Group", title: "ONE PERSON, ONE *CAMERA*", meta: "About" },
-    { file: "work", eyebrow: "Alpine Media Group", title: "WORK WITH *ME*", meta: "Rates on request" },
+    { file: "partnerships", eyebrow: "Available for work", title: "OPEN FOR *PARTNERSHIPS*", section: "videos", meta: "Rates on request" },
     { file: "links", eyebrow: "Alpine Media Group", title: "EVERYTHING IN ONE *PLACE*", meta: "Links" },
-    ...ctx.published.map((c) => ({
-      file: `country-${c.slug}`,
-      eyebrow: `Visit Europe Project · ${c.region}`,
-      title: c.headline,
-      section: "europe",
-      meta: `${c.iso} · ${(ctx.gemsByCountry.get(c.slug) ?? []).length} places`,
-    })),
   ];
 
   for (const c of cards) {

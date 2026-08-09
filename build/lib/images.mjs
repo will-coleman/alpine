@@ -30,8 +30,50 @@ const JPEG = { quality: 80, mozjpeg: true, progressive: true };
  * Encodes one source into three formats at the widths asked for.
  * Returns the data a <picture> needs, not markup.
  */
-export async function process(srcPath, { widths = [480, 960, 1600] } = {}) {
-  const buf = await readFile(srcPath);
+/**
+ * True when both side strips are near-black and the middle isn't — i.e. a
+ * vertical frame pillarboxed into a 16:9 file.
+ *
+ * Detected from the pixels rather than from a #shorts hashtag, because plenty
+ * of vertical uploads never get tagged and they arrive with the same bars.
+ */
+async function isPillarboxed(buf) {
+  const m = await sharp(buf).metadata();
+  if (!m.width || !m.height || m.width / m.height < 1.5) return false;
+
+  const strip = Math.max(2, Math.round(m.width * 0.03));
+  // stats() reads the input image and ignores anything queued before it, so
+  // the region has to be rendered to a buffer first or every strip comes back
+  // with the mean of the whole picture.
+  const mean = async (left) => {
+    const region = await sharp(buf).extract({ left, top: 0, width: strip, height: m.height }).toBuffer();
+    const { channels } = await sharp(region).stats();
+    return channels.slice(0, 3).reduce((a, c) => a + c.mean, 0) / 3;
+  };
+
+  const [l, r, mid] = await Promise.all([
+    mean(0),
+    mean(m.width - strip),
+    mean(Math.round((m.width - strip) / 2)),
+  ]);
+  return l < 18 && r < 18 && mid > 40;
+}
+
+export async function process(srcPath, { widths = [480, 960, 1600], vertical = null } = {}) {
+  let buf = await readFile(srcPath);
+
+  // Cut the bars off and keep the middle of the actual frame.
+  if (vertical ?? (await isPillarboxed(buf))) {
+    const m = await sharp(buf).metadata();
+    const frameWidth = Math.round((m.height * 9) / 16);
+    if (frameWidth < m.width) {
+      const left = Math.round((m.width - frameWidth) / 2);
+      const keep = Math.round((frameWidth * 9) / 16);
+      buf = await sharp(buf)
+        .extract({ left, top: Math.round((m.height - keep) / 2), width: frameWidth, height: keep })
+        .toBuffer();
+    }
+  }
   const hash = createHash("sha1").update(buf).update(widths.join(",")).digest("hex").slice(0, 8);
   const stem = basename(srcPath, extname(srcPath)).replace(/[^a-z0-9-]+/gi, "-").toLowerCase();
 
@@ -72,8 +114,8 @@ export async function process(srcPath, { widths = [480, 960, 1600] } = {}) {
 }
 
 /** <picture> with the three sources, explicit dimensions and no wrapper chrome. */
-export async function picture(srcPath, { alt, sizes = "100vw", widths, className = "", eager = false } = {}) {
-  const img = await process(srcPath, widths ? { widths } : undefined);
+export async function picture(srcPath, { alt, sizes = "100vw", widths, className = "", eager = false, vertical = null } = {}) {
+  const img = await process(srcPath, { ...(widths ? { widths } : {}), vertical });
   return html`<picture>
 <source type="image/avif" srcset="${img.avif.join(", ")}" sizes="${sizes}">
 <source type="image/webp" srcset="${img.webp.join(", ")}" sizes="${sizes}">

@@ -13,7 +13,6 @@ import { site, youtube, instagram } from "../../site.config.js";
  */
 export default async function links(ctx) {
   const latestVideo = ctx.videos[0];
-  const latestGuide = [...ctx.published].sort((a, b) => (a.updated < b.updated ? 1 : -1))[0];
 
   const stack = [
     latestVideo && {
@@ -23,23 +22,11 @@ export default async function links(ctx) {
       meta: shortDate(latestVideo.published),
       external: true,
     },
-    latestGuide && {
-      href: `/europe/countries/${latestGuide.slug}/`,
-      label: "Latest country guide",
-      title: latestGuide.headline,
-      meta: latestGuide.name,
-    },
     {
-      href: "/europe/hidden-gems/",
-      label: "Hidden gems",
-      title: `*${ctx.gems.length}* PLACES WORTH THE DETOUR`,
-      meta: "Filterable",
-    },
-    {
-      href: "/europe/featured/",
-      label: "Get featured",
-      title: "TAG ME AND GET *REPOSTED*",
-      meta: "How it works",
+      href: "/partnerships/",
+      label: "Brands and agencies",
+      title: "OPEN FOR *PARTNERSHIPS*",
+      meta: "What I deliver",
     },
     { href: youtube.channelUrl, label: "YouTube", title: "*ALPINE FLYER*", meta: youtube.handle, external: true },
     { href: instagram.url, label: "Instagram", title: "*VISIT EUROPE* PROJECT", meta: instagram.handle, external: true },
@@ -49,7 +36,7 @@ export default async function links(ctx) {
   const main = html`
 <div class="wrap links-wrap">
   <h1 class="links-mark d d-s"><a href="/">Alpine Media Group</a></h1>
-  <p class="links-note">Everything in one place. Aviation on YouTube, Europe on Instagram.</p>
+  <p class="links-note">Travel and airline reviews. Open for partnerships.</p>
 
   <ul class="stack-links">
     ${stack.map(
@@ -74,7 +61,7 @@ export default async function links(ctx) {
       path: "/links/",
       html: page({
         title: "Links",
-        description: "Latest video, latest country guide, hidden gems, and both accounts.",
+        description: "Latest video, partnerships, and both accounts.",
         path: "/links/",
         ogImage: "/og/links.png",
         css: ctx.css,

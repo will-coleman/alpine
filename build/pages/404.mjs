@@ -13,23 +13,18 @@ export default async function notFound(ctx) {
     <p class="eyebrow">404</p>
     ${headline(H1, { as: "h1", size: "d-xl" })}
     <p class="lede">
-      Either I moved it, or it was never written. ${ctx.counts.total - ctx.counts.covered} of the 44
-      countries still don't have a guide, so the second one is quite likely.
+      Either I moved it or it never existed. The videos are still where they were.
     </p>
   </div>
 
   <section>
-    <a class="linkrow" href="/europe/countries/">
-      <span class="linkrow-t">All 44 countries</span>
-      <span class="m">${ctx.counts.covered} live, ${ctx.counts.total - ctx.counts.covered} to go</span>
-    </a>
     <a class="linkrow" href="/videos/">
       <span class="linkrow-t">Videos</span>
       <span class="m">${ctx.videos.length} on the channel</span>
     </a>
     <a class="linkrow" href="/">
-      <span class="linkrow-t">Everything, newest first</span>
-      <span class="m">Home</span>
+      <span class="linkrow-t">Home</span>
+      <span class="m">Latest videos</span>
     </a>
   </section>
 </div>

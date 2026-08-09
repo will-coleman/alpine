@@ -52,8 +52,10 @@ export const properties = [
     blurb: "Airline reviews, flight sim, and what's actually wrong with the aeroplane.",
   },
   {
+    // Still a real thing I run, but it lives on Instagram — the site just
+    // points at it from /about rather than mirroring it.
     id: "visit-europe",
-    enabled: true,
+    enabled: false,
     name: "Visit Europe Project",
     tag: "Visit Europe",
     section: "europe",
@@ -80,27 +82,12 @@ export const properties = [
 
 export const nav = [
   { href: "/videos/", label: "Videos" },
-  { href: "/europe/", label: "Europe" },
-  { href: "/work-with-me/", label: "Work with me" },
+  { href: "/partnerships/", label: "Partnerships" },
   { href: "/about/", label: "About" },
 ];
 
-/** Region order is the order they appear in the filter bar. */
-export const REGIONS = [
-  "British Isles",
-  "Nordics",
-  "Baltics",
-  "Central Europe",
-  "Balkans",
-  "Iberia",
-  "Mediterranean",
-  "Eastern Europe",
-  "Caucasus and edges",
-];
-
-export const GEM_TYPES = ["coast", "mountain", "town", "ruin", "food", "viewpoint"];
 
 /** Set PUBLIC_FORMSPREE_ENDPOINT in the environment. See .env.example. */
 export const formspree = process.env.PUBLIC_FORMSPREE_ENDPOINT || "";
 
-export default { site, youtube, instagram, properties, nav, REGIONS, GEM_TYPES, formspree };
+export default { site, youtube, instagram, properties, nav, formspree };

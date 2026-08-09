@@ -50,10 +50,8 @@
      snow on pitch 15.9    scree on pitch  6.2
      AF red on slate 5.2   EU blue-lit on slate 5.1
      EU yellow on EU blue 7.2    snow on EU blue 10.9
-   EU yellow is 2.2:1 on the lit blue, so it only ever sits on the deep blue
-   or on slate. See .tile--on. */
+   The Europe section is gone, so red is the only property accent left. */
 [data-section="videos"] { --accent: #FF4A3D; }
-[data-section="europe"] { --accent: #5B8AE8; --accent-mark: #FFCC00; --accent-deep: #003399; }
 
 /* 2 ----------------------------------------------------------------- faces */
 
@@ -105,9 +103,9 @@ body {
 img, video { display: block; max-width: 100%; height: auto; }
 
 /* Radius logic, stated once: rectangles are rectangles. The only round things
-   are things that are actually circles — the channel dot, the board mark.
+   are things that are actually circles — the dot on a card's meta line.
    There is no in-between value anywhere on this site. */
-img, video, input, textarea, button, select, .tile { border-radius: 0; }
+img, video, input, textarea, button, select { border-radius: 0; }
 
 a { color: inherit; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
@@ -412,50 +410,23 @@ section { margin-top: calc(var(--step) * 2); }
 }
 .more:hover { color: var(--snow); border-bottom-color: var(--accent); }
 
-/* 8 -------------------------------------------------------------- guides */
-
-/* Photography leads. The countries that have a guide are shown as pictures of
-   the places, not as tiles in a grid. */
-.guides { display: grid; gap: 1.75rem; }
-@media (min-width: 40em) { .guides { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.75rem; } }
-.guide { display: grid; gap: 0.6rem; text-decoration: none; }
-.guide img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-.guide-t { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.5rem; line-height: 0.95; }
-.guide:hover .guide-t { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; text-decoration-color: var(--accent); }
-.guide p { margin: 0; color: var(--scree); max-width: 42ch; }
-
-/* --- the home masthead ----------------------------------------------------
-   Two unequal columns: what I do on the left, the most recent thing on the
-   right. Not a hero with a headline over two pill buttons — the newest still
-   does the job a hero image would have done, and it's real. */
-.mast { padding: calc(var(--step) * 1.25) 0 var(--step); display: grid; gap: 1.25rem; }
+/* --- the partnership band --------------------------------------------------
+   Full width, on the recessed surface, straight after the introduction. It's
+   the thing the site is for, so it doesn't get buried under the videos. */
+.pitch {
+  background: var(--pitch);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: calc(var(--step) * 2) 0;
+  margin: calc(var(--step) * 1.5) 0 0;
+}
+.pitch-grid { display: grid; gap: 1.5rem; }
 @media (min-width: 56.25em) {
-  /* Headline left, what I actually do right. Both columns carry weight, so
-     the page doesn't open with half of it empty. */
-  .mast { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+  .pitch-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
 }
-.mast-copy p { max-width: 44ch; margin: 0 0 0.9rem; color: color-mix(in oklab, var(--snow) 88%, var(--slate)); }
-.mast-copy p:last-child { margin-bottom: 0; }
-.mast-latest { display: grid; gap: 0.4rem; text-decoration: none; }
-.mast-latest img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-.mast-latest:hover .mast-latest-t {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--accent);
-}
-.mast-latest-t { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.125rem; line-height: 1.05; }
-
-.covered { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; margin-top: 0.9rem; }
-.covered a {
-  font-family: var(--display);
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 1.25rem;
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-}
-.covered a:hover { border-bottom-color: var(--accent); }
+.pitch-grid p { max-width: 46ch; margin: 0 0 1rem; }
+.pitch-cta { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; margin: 1.25rem 0 0 !important; }
+.pitch-cta .more { margin-top: 0; }
 
 /* 9 ----------------------------------------------------------------- pages */
 
@@ -485,65 +456,9 @@ section { margin-top: calc(var(--step) * 2); }
 .vid-group { margin-top: calc(var(--step) * 2); }
 .row--vid { --tag: var(--accent); }
 
-.gem { padding: 1.3rem 0; border-bottom: 1px solid var(--rule); }
-.gems, .gemlist { border-top: 1px solid var(--rule); }
-.gem-h { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
-.gem-type { font-size: 0.875rem; color: var(--accent); }
-.gem-co { font-size: 0.875rem; color: var(--scree); }
-.gem p { margin: 0.45rem 0 0; max-width: var(--measure); }
-.gem-facts { display: flex; flex-wrap: wrap; gap: 0.3rem 1.25rem; margin-top: 0.6rem; }
-.gem-side { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; align-items: baseline; }
-@media (min-width: 56.25em) {
-  .gem-side { flex-direction: column; align-items: flex-end; gap: 0.3rem; padding-top: 0.5rem; }
-}
 
-.filters { display: grid; gap: 0.7rem; margin: var(--step) 0; }
-.filter-set { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-/* Filters are words you can press, not pills in a row. */
-.chip {
-  font: inherit;
-  font-size: 0.9375rem;
-  padding: 0.15rem 0;
-  border: 0;
-  background: none;
-  color: var(--scree);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-}
-.chip:hover { color: var(--snow); }
-.chip[aria-pressed="true"] { color: var(--snow); border-bottom-color: var(--accent); }
-.chip-n { display: none; }
 
-.search {
-  font-family: var(--body);
-  font-size: 1rem;
-  padding: 0.6rem 0.7rem;
-  border: 1px solid var(--rule);
-  background: var(--pitch);
-  color: var(--snow);
-  width: min(100%, 22rem);
-}
-.search::placeholder { color: var(--scree); }
-.tally { font-size: 0.875rem; color: var(--scree); }
 
-.clist { border-top: 1px solid var(--rule); }
-.clist-meta { display: flex; gap: 0.75rem; align-items: baseline; margin-left: auto; }
-.clist-none { display: none; }
-@media (min-width: 34em) { .clist-none { display: inline; } }
-
-.seasons { display: grid; gap: 1rem; }
-@media (min-width: 40em) { .seasons { grid-template-columns: repeat(2, 1fr); gap: 1.2rem 2.5rem; } }
-.season h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.01em; color: var(--accent); margin: 0 0 0.2rem; }
-.season p { margin: 0; color: color-mix(in oklab, var(--snow) 88%, var(--slate)); }
-
-.mustsee { margin: 0; }
-.mustsee-row { padding: 0.85rem 0; border-bottom: 1px solid var(--rule); }
-.mustsee dt { margin: 0 0 0.15rem; }
-.mustsee dd { margin: 0; max-width: var(--measure); color: color-mix(in oklab, var(--snow) 88%, var(--slate)); }
-@media (min-width: 56.25em) {
-  .mustsee-row { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 2.5rem; align-items: baseline; }
-  .mustsee dt { margin: 0; }
-}
 
 .deliver { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
 

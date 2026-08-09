@@ -106,18 +106,17 @@ function footer() {
     <div>
       <p class="d d-s">Alpine Media Group</p>
       <p class="ftr-note">
-        One person with a camera, based in ${site.based}. A YouTube channel about aeroplanes, and a
-        project working through all 44 countries in Europe. If you email it, I'm the one who reads it
-        — <a href="mailto:${site.email}">${site.email}</a>.
+        One person with a camera, based in ${site.based}. Travel and airline reviews on YouTube,
+        and open to partnerships. If you email it, I'm the one who reads it —
+        <a href="mailto:${site.email}">${site.email}</a>.
       </p>
     </div>
     <div class="ftr-links">
       <p class="m" style="margin:0 0 .25rem">Pages</p>
-      ${live.map((p) => html`<a href="${p.href}">${p.name}</a>`)}
-      <a href="/europe/hidden-gems/">Hidden gems</a>
-      <a href="/europe/featured/">Get featured</a>
-      <a href="/work-with-me/">Work with me</a>
+      <a href="/videos/">Videos</a>
+      <a href="/partnerships/">Partnerships</a>
       <a href="/about/">About</a>
+      <a href="/links/">Links</a>
     </div>
     <div class="ftr-links">
       <p class="m" style="margin:0 0 .25rem">Elsewhere</p>

@@ -22,13 +22,8 @@ import { buildOgImages } from "./lib/og.mjs";
 
 import home from "./pages/home.mjs";
 import videos from "./pages/videos.mjs";
-import europe from "./pages/europe.mjs";
-import countries from "./pages/countries.mjs";
-import country from "./pages/country.mjs";
-import gems from "./pages/gems.mjs";
-import featured from "./pages/featured.mjs";
 import about from "./pages/about.mjs";
-import work from "./pages/work.mjs";
+import partnerships from "./pages/partnerships.mjs";
 import links from "./pages/links.mjs";
 import notFound from "./pages/404.mjs";
 
@@ -88,13 +83,8 @@ async function main() {
   const pages = [
     ...(await home(ctx)),
     ...(await videos(ctx)),
-    ...(await europe(ctx)),
-    ...(await countries(ctx)),
-    ...(await country(ctx)),
-    ...(await gems(ctx)),
-    ...(await featured(ctx)),
     ...(await about(ctx)),
-    ...(await work(ctx)),
+    ...(await partnerships(ctx)),
     ...(await links(ctx)),
     ...(await notFound(ctx)),
   ];
@@ -143,9 +133,7 @@ async function writeRobots() {
 function report({ ctx, pages, sizes, bytes }) {
   const kb = (n) => `${(n / 1024).toFixed(1)}KB`;
   console.log(`   pages:  ${pages.length}  (${kb(bytes)} of HTML)`);
-  console.log(`   board:  ${ctx.counts.covered} / ${ctx.counts.total} covered`);
-  console.log(`   gems:   ${ctx.gems.length} across ${new Set(ctx.gems.map((g) => g.country)).size} countries`);
-  console.log(`   index:  ${ctx.index.length} rows`);
+  console.log(`   videos: ${ctx.videos.length} on the channel`);
   console.log(`   links:  ${kb(sizes.get("/links/") ?? 0)}`);
 
   if (ctx.problems.length) {
