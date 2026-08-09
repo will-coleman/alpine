@@ -4,18 +4,18 @@ import { headline, assertMarked, plain } from "../lib/headline.mjs";
 import { shortDate } from "../lib/components.mjs";
 import { site, youtube } from "../../site.config.js";
 
-const H1 = "TRAVEL, AIRLINES, AND THE *AEROPLANES* THEMSELVES";
+const H1 = "EVERYTHING ON THE *CHANNEL*";
 
 /** Sits under the airline review, because that video is the best answer to
     "what is this channel" that I've got. */
 const ABOUT = html`<div class="prose" style="margin-top:1.5rem">
   <p>
-    I paid for that ticket and sat in it like anyone else. The review covers the bits an airline
+    I booked that flight and travelled as a paying passenger. The review covers what an airline
     would leave out of an advert.
   </p>
   <p>
-    I'm Will, from England. The channel is turning into a travel channel. The flight sim back
-    catalogue is still down the page; there'll be less of it from here.
+    The channel started with flight sim and is moving towards travel. That is where the next run
+    of videos is going.
   </p>
 </div>`;
 
@@ -40,9 +40,7 @@ export default async function videos(ctx) {
     <p class="eyebrow">Alpine Flyer · YouTube</p>
     ${headline(H1, { as: "h1", size: "d-xl" })}
     <p class="lede">
-      Pulled straight from the channel when the site is built, so it's whatever is actually up
-      there. The channel is turning into a travel channel — the flight sim back catalogue is still
-      here, at the bottom, where it now belongs.
+      Long-form travel, airline reviews, and the flight sim work the channel started with.
     </p>
   </div>
 
@@ -64,8 +62,7 @@ export default async function videos(ctx) {
   <section>
     <p class="note">
       New videos go up most weeks.
-      <a href="${youtube.subscribeUrl}" rel="noopener">Subscribe on YouTube</a> and they turn up on
-      their own.
+      <a href="${youtube.subscribeUrl}" rel="noopener">Subscribe on YouTube</a>.
     </p>
   </section>
 </div>

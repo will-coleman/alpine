@@ -30,7 +30,7 @@ export default async function partnerships(ctx) {
       <a class="contact-main" href="mailto:${site.email}?subject=${encodeURIComponent("Partnership")}">
         <span class="m">Email me</span>
         <span class="contact-addr">${site.email}</span>
-        <span class="m">Tell me the route or the region, roughly when, and what you want out of it. Three lines is enough to start — you'll get a straight answer either way.</span>
+        <span class="m">Tell me the route or the region, roughly when, and what you're after. A few lines is enough to start.</span>
       </a>
 
       <div class="contact-side">
@@ -52,10 +52,10 @@ export default async function partnerships(ctx) {
 
   <section class="prose">
     <p>
-      It's one person, so it's one project at a time. I'll say if something was good. I'll also say
-      if it wasn't, and you'd want it that way, because the alternative convinces nobody.
+      I take one project at a time. Reviews are honest, including when the verdict is
+      unflattering.
     </p>
-    <p class="m">Paid work is disclosed on the video and in the caption, every time, without being asked.</p>
+    <p class="m">Paid work is disclosed on the video and in the caption, every time.</p>
   </section>
 </div>
 `;

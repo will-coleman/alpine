@@ -64,11 +64,10 @@ export default async function home(ctx) {
     ${headline(H1, { as: "h1", size: "d-xl" })}
     <div class="mast-copy">
       <p>
-        I'm Will. I live in ${site.based} and I'm working my way across Europe with a camera.
-        Trains where they make sense, flights where they don't. The last run was London to Helsinki
-        without leaving the ground.
+        I'm Will, a travel filmmaker based in ${site.based}. I make long-form travel films and
+        airline reviews, mostly about crossing Europe overland.
       </p>
-      <p>Everything I've put out is below, newest first.</p>
+      <p>Everything I've published is below, newest first.</p>
     </div>
   </div>
 
@@ -104,8 +103,8 @@ export default async function home(ctx) {
 
   <section>
     <p class="note">
-      Airlines, hotels and tourist boards: if you want a camera on something,
-      <a href="/partnerships/">get in touch</a>.
+      Available for partnership work with airlines, hotels, tourist boards and travel brands.
+      <a href="/partnerships/">Details and contact</a>.
     </p>
   </section>
 

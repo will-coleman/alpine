@@ -49,34 +49,35 @@ ${still ? html`<div class="bleed">${still}</div>` : ""}
     <h2 class="d d-m">What it is</h2>
     <p style="margin-top:.7rem">
       Short video and carousels, one place at a time, working towards every country in Europe. The
-      brief hasn't changed: skip the queue at the famous thing and drive twenty minutes to the one
-      nobody photographs.
+      brief has stayed the same: cover the places twenty minutes past the famous one, where most
+      itineraries stop.
     </p>
     <p>
-      People tag the account. The good ones get reposted, credited.
+      Submissions come in through tags. The ones that fit get reposted, credited to whoever shot
+      them.
     </p>
   </section>
 
   <section class="prose">
     <h2 class="d d-m">From edits to documenting it myself</h2>
     <p style="margin-top:.7rem">
-      So far it's mostly been editing. Other people's footage, cut and captioned, credited on the
-      post. That's how the account found an audience and I'm not embarrassed by it.
+      The account has been built on edited footage so far: clips from other creators, cut and
+      captioned, credited on the post. That is how it found its audience.
     </p>
     <p>
-      What I want now is to shoot it myself. Same countries, same brief, but me actually in the
-      place with a camera. That means fewer posts. I think they'll be better ones.
+      The plan from here is to shoot it myself: the same countries and the same brief, filmed on
+      the ground. Fewer posts, and better ones.
     </p>
     <p>
-      The <a href="/videos/">YouTube channel</a> is heading the same way.
+      The <a href="/videos/">YouTube channel</a> is moving in the same direction.
     </p>
   </section>
 
   <section>
     <p class="note">
-      The account is <a href="${instagram.url}" rel="me noopener">${instagram.handle}</a>. Tag it in
-      something you've shot and it might go up, with your credit on it — and it comes down the same
-      day if you email <a href="mailto:${site.email}">${site.email}</a> and ask.
+      The account is <a href="${instagram.url}" rel="me noopener">${instagram.handle}</a>. Tag it
+      in something you've shot and it may go up, credited to you. Anything reposted comes down the
+      same day on request: <a href="mailto:${site.email}">${site.email}</a>.
     </p>
   </section>
 </div>

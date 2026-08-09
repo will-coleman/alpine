@@ -106,9 +106,8 @@ function footer() {
     <div>
       <p class="d d-s">Alpine Media Group</p>
       <p class="ftr-note">
-        One person with a camera, based in ${site.based}. Travel and airline reviews on YouTube,
-        and open to partnerships. If you email it, I'm the one who reads it —
-        <a href="mailto:${site.email}">${site.email}</a>.
+        Travel films and airline reviews by Will, based in ${site.based}. Available for
+        partnership work. <a href="mailto:${site.email}">${site.email}</a>
       </p>
     </div>
     <div class="ftr-links">

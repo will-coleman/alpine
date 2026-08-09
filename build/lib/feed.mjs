@@ -35,7 +35,7 @@ export const SERIES = [
   {
     id: "flight-sim",
     name: "Flight sim",
-    blurb: "The back catalogue. Less of this from here on.",
+    blurb: "Earlier work.",
     test: /\bmsfs|flight ?sim|\bfenix\b|shared cockpit|speed ?run|\bsim\b|\bfs20\d\d\b|racing a jet/i,
   },
 ];

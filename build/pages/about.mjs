@@ -16,19 +16,19 @@ export default async function about(ctx) {
 
   <section class="prose">
     <p class="lede" style="max-width:52ch">
-      I'm Will. I live in ${site.based} and I spend most of my spare money on train tickets.
+      I make travel films and airline reviews, and I'm based in ${site.based}.
     </p>
     <p>
-      <a href="/videos/">Alpine Flyer</a> is the YouTube channel. It began as flight sim. Now it's
-      mostly real trips: the flight, the route, the hotel, and whether any of it was worth doing.
+      <a href="/videos/">Alpine Flyer</a> is the YouTube channel: long-form travel and reviews of
+      airlines I've flown as a paying passenger. It started out as flight sim work and has moved
+      towards real journeys.
     </p>
     <p>
-      <a href="/instagram/">The Visit Europe Project</a> is my Instagram. Short travel video,
-      working through the countries of Europe one at a time.
+      <a href="/instagram/">The Visit Europe Project</a> is the Instagram account: short-form
+      travel video, working through the countries of Europe one at a time.
     </p>
     <p>
-      Alpine Media Group is just the name I put over both. There's nobody else here, so when you
-      email it, you get me, usually within a day or two.
+      Alpine Media Group is the name I work under. Enquiries come to me directly.
     </p>
   </section>
 
@@ -52,8 +52,7 @@ export default async function about(ctx) {
 
   <section>
     <p class="note">
-      Working on something and want me involved? <a href="/partnerships/">That's over here</a> —
-      I'm open to reviews, trips and product work.
+      For commissions and partnership work, see <a href="/partnerships/">partnerships</a>.
     </p>
   </section>
 </div>
