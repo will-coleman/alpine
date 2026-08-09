@@ -502,9 +502,26 @@ section { margin-top: calc(var(--step) * 2); }
    Headline left, what I actually do right. Both columns carry weight so the
    page doesn't open with half of it empty, and the top padding keeps the
    headline off the header rule. */
-.mast { padding: calc(var(--step) * 2) 0 var(--step); display: grid; gap: 1.25rem; }
+.mast {
+  padding: calc(var(--step) * 2) 0 var(--step);
+  display: grid;
+  gap: 1.25rem;
+  container-type: inline-size;
+}
 @media (min-width: 56.25em) {
-  .mast { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+  .mast { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+}
+
+/* The headline sizes off its own column, not the viewport. Sized in vw it
+   hit 72px inside a 500px column and broke onto four lines, one of them a
+   single word. Balance made that worse — it evens line lengths, which is
+   exactly wrong when the text barely fits. */
+.mast > .d {
+  font-size: clamp(2.5rem, 9.5cqw, 4rem);
+  text-wrap: pretty;
+}
+@supports not (font-size: 1cqw) {
+  .mast > .d { font-size: clamp(2.5rem, 5.5vw, 3.5rem); }
 }
 .mast-copy p {
   max-width: 44ch;
