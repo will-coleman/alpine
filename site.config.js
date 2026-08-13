@@ -9,7 +9,7 @@ export const site = {
   shortName: "Alpine Media Group",
   locale: "en_GB",
   lang: "en-GB",
-  email: "milo@coleman-clan.co.uk",
+  email: "sales@flightbank.co.uk",
   based: "England",
 };
 
